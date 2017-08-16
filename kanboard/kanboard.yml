@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  kanboard:
+    image: kanboard/kanboard
+    volumes:
+     - /var/data/kanboard/data:/var/www/app/data
+     - /var/data/kanboard/plugins:/var/www/app/plugins
+    networks:
+    - traefik
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:kanboard.funkypenguin.co.nz
+        - traefik.docker.network=traefik
+        - traefik.port=80
+
+networks:
+  traefik:
+    external: true

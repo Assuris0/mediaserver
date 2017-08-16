@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mail:
+    image: tvial/docker-mailserver:latest
+    ports:
+      - "25:25"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - /var/data/docker-mailserver/maildata:/var/mail
+      - /var/data/docker-mailserver/mailstate:/var/mail-state
+      - /var/data/docker-mailserver/config:/tmp/docker-mailserver
+      - /var/data/docker-mailserver/letsencrypt:/etc/letsencrypt
+    env_file: /var/data/config/mailserver/mailserver.env
+    networks:
+      - internal
+    deploy:
+      replicas: 1
+
+networks:
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.16.2.0/24

@@ -3,15 +3,18 @@ version: '3'
 services:
     db:
       image: postgres:latest
-      env_file: /var/data/ttrss/ttrss.env
+      env_file: /var/data/config/ttrss/ttrss.env
       volumes:
-        - /var/data/ttrss/database:/var/lib/postgresql/data
+        - /var/data/runtime/ttrss/database:/var/lib/postgresql/data
+        - /etc/localtime:/etc/localtime:ro
       networks:
         - internal
 
     app:
       image: funkypenguin/docker-ttrss
-      env_file: /var/data/ttrss/ttrss.env
+      env_file: /var/data/config/ttrss/ttrss.env
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
       deploy:
         labels:
           - traefik.frontend.rule=Host:ttrss.funkypenguin.co.nz
@@ -23,15 +26,17 @@ services:
 
     db-backup:
       image: postgres:latest
-      env_file: /var/data/ttrss/ttrss.env
+      env_file: /var/data/config/ttrss/ttrss.env
       volumes:
         - /var/data/ttrss/database-dump:/dump
+        - /etc/localtime:/etc/localtime:ro
       entrypoint: |
         bash -c 'bash -s <<EOF
         trap "break;exit" SIGHUP SIGINT SIGTERM
         sleep 2m
         while /bin/true; do
-          pg_dump -Fc > /dump/dump_`date +%d-%m-%Y"_"%H_%M_%S`.psql
+          pg_dump -Fc > /dump/dump_\`date +%d-%m-%Y"_"%H_%M_%S\`.psql
+          (ls -t /dump/dump*.psql|head -n $$BACKUP_NUM_KEEP;ls /dump/dump*.psql)|sort|uniq -u|xargs rm
           sleep $$BACKUP_FREQUENCY
         done
         EOF'
