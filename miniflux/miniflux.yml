@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  miniflux:
+    image: saghul/miniflux
+    volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - /var/data/miniflux/:/config/
+    networks:
+    - traefik
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:miniflux.funkypenguin.co.nz
+        - traefik.docker.network=traefik
+        - traefik.port=80
+
+networks:
+  traefik:
+    external: true

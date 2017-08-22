@@ -11,7 +11,7 @@ services:
         - internal
 
     app:
-      image: funkypenguin/docker-ttrss
+      image: funkypenguin/docker-ttrss:fever-api-plugin
       env_file: /var/data/config/ttrss/ttrss.env
       volumes:
         - /etc/localtime:/etc/localtime:ro
