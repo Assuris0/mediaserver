@@ -2,30 +2,33 @@ version: '3'
 
 services:
   app:
-    image: kanboard/kanboard
+    image: dakue/gollum
     volumes:
-     - /var/data/kanboard/data:/var/www/app/data
-     - /var/data/kanboard/plugins:/var/www/app/plugins
+     - /var/data/gollum:/gollum
     networks:
-    - traefik_public
-
+    - internal
+    command: |
+      --allow-uploads 
+      --emoji
+      --user-icons gravatar
+      
   proxy:
     image: zappi/oauth2_proxy
-    env_file : /var/data/config/kanboard/kanboard.env
+    env_file : /var/data/config/gollum/gollum.env
     networks:
       - internal
       - traefik_public
     deploy:
       labels:
-        - traefik.frontend.rule=Host:kanboard.funkypenguin.co.nz
+        - traefik.frontend.rule=Host:gollum.funkypenguin.co.nz
         - traefik.docker.network=traefik_public
         - traefik.port=4180
     volumes:
-      - /var/data/config/kanboard/authenticated-emails.txt:/authenticated-emails.txt
+      - /var/data/config/gollum/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
-      -upstream=http://app
-      -redirect-url=https://kanboard.funkypenguin.co.nz
+      -upstream=http://app:4567
+      -redirect-url=https://gollum.funkypenguin.co.nz
       -http-address=http://0.0.0.0:4180
       -email-domain=funkypenguin.co.nz
       -provider=github
@@ -38,4 +41,4 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.8.0/24
+        - subnet: 172.16.9.0/24

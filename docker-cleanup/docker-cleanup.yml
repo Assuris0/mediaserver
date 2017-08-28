@@ -14,7 +14,7 @@ services:
         constraints: [node.role == manager]
       restart_policy:
         condition: on-failure
-    env_file: /var/data/docker-cleanup/docker-cleanup.env
+    env_file: /var/data/config/docker-cleanup/docker-cleanup.env
 
 networks:
   internal:
