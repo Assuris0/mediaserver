@@ -1,35 +1,34 @@
 version: '3'
 
 services:
-
-  huginn:
-    image: huginn/huginn
-    env_file: /var/data/config/huginn/huginn.env
+  wallabag:
+    image: wallabag/wallabag
+    env_file: /var/data/config/wallabag/wallabag.env
     volumes:
-    - /etc/localtime:/etc/localtime:ro
+      - /var/data/wallabag/images:/var/www/wallabag/web/assets/images
+      - /etc/localtime:/etc/localtime:ro
     networks:
-    - internal   
-    - traefik_public
+      - internal
+      - traefik_public
     deploy:
       labels:
-        - traefik.frontend.rule=Host:huginn.funkypenguin.co.nz
-        - traefik.docker.network=traefik_public
-        - traefik.port=3000
+        - traefik.frontend.rule=Host:wallabag.funkypenguin.co.nz
+        - traefik.docker.network=traefik
+        - traefik.port=80
 
   db:
-    env_file: /var/data/config/huginn/huginn.env
-    image: postgres:latest
+    image: postgres
+    env_file: /var/data/config/wallabag/wallabag.env
     volumes:
-      - /var/data/runtime/huginn/database:/var/lib/postgresql/data
-      - /etc/localtime:/etc/localtime:ro
+      - /var/data/runtime/wallabag/data:/var/lib/postgresql/data
     networks:
       - internal
 
   db-backup:
     image: postgres:latest
-    env_file: /var/data/config/huginn/huginn.env
+    env_file: /var/data/config/wallabag/wallabag.env
     volumes:
-      - /var/data/huginn/database-dump:/dump
+      - /var/data/wallabag/database-dump:/dump
       - /etc/localtime:/etc/localtime:ro
     entrypoint: |
       bash -c 'bash -s <<EOF
@@ -44,6 +43,11 @@ services:
     networks:
     - internal
 
+  redis:
+    image: redis:alpine
+    networks:
+      - internal
+
 networks:
   traefik_public:
     external: true
@@ -51,4 +55,4 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.6.0/24
+        - subnet: 172.16.10.0/24
