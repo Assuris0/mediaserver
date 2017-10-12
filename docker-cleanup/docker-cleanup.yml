@@ -10,10 +10,6 @@ services:
       - internal
     deploy:
       mode: global
-      placement:
-        constraints: [node.role == manager]
-      restart_policy:
-        condition: on-failure
     env_file: /var/data/config/docker-cleanup/docker-cleanup.env
 
 networks:
@@ -21,4 +17,4 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.1.6/24
+        - subnet: 172.16.0.0/24
