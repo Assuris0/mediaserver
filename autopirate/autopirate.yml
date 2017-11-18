@@ -1,0 +1,281 @@
+version: '3'
+
+services:
+  sabnzbd:
+    image: funkypenguin/sabnzbd:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/sabnzbd:/config
+    networks:
+    - traefik_public
+
+  sabnzbd_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/sabnzbd.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:sabnzbd.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://sabnzbd:8080
+      -redirect-url=https://sabnzbd.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  lazylibrarian:
+    image: linuxserver/lazylibrarian:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/lazylibrarian:/config
+    networks:
+    - traefik_public
+
+  lazylibrarian_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/lazylibrarian.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:lazylibrarian.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://lazylibrarian:5299
+      -redirect-url=https://lazylibrarian.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+  
+  mylar:
+    image: linuxserver/mylar:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/mylar:/config
+    networks:
+    - traefik_public
+
+  mylar_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/mylar.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:mylar.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://mylar:8090
+      -redirect-url=https://mylar.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  ombi:
+    image: linuxserver/ombi:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/ombi:/config
+    networks:
+    - traefik_public
+
+  ombi_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/ombi.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:ombi.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://ombi:3579
+      -redirect-url=https://ombi.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  headphones:
+    image: linuxserver/headphones:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/headphones:/config
+    networks:
+    - traefik_public
+
+  headphones_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/headphones.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:headphones.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://headphones:8181
+      -redirect-url=https://headphones.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  plexpy:
+    image: linuxserver/plexpy:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/plexpy:/config
+    networks:
+    - traefik_public
+
+  plexpy_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/plexpy.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:plexpy.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://plexpy:8181
+      -redirect-url=https://headphones.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  radarr:
+    image: linuxserver/radarr:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/radarr:/config
+    networks:
+    - traefik_public
+
+  radarr_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/radarr.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:radarr.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://radarr:7171
+      -redirect-url=https://radarr.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/sonarr:/config
+    networks:
+    - traefik_public
+
+  sonarr_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/sonarr.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:sonarr.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://sonarr:8989
+      -redirect-url=https://sonarr.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  nzbhydra:
+    image: linuxserver/hydra:latest
+    volumes:
+     - /srv/data/:/data
+     - /var/data/autopirate/nzbhydra:/config
+    networks:
+    - traefik_public
+
+  nzbhydra_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/nzbhydra.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:nzbhydra.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://nzbhydra:5075
+      -redirect-url=https://nzbhydra.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -email-domain=funkypenguin.co.nz
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+networks:
+  traefik_public:
+    external: true
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.16.11.0/24
