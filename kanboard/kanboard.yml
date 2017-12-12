@@ -7,7 +7,7 @@ services:
      - /var/data/kanboard/data:/var/www/app/data
      - /var/data/kanboard/plugins:/var/www/app/plugins
     networks:
-    - traefik_public
+    - internal
 
   proxy:
     image: zappi/oauth2_proxy
