@@ -2,7 +2,7 @@ version: '3'
 
 services:
   sabnzbd:
-    image: linuxserven/sabnzbd
+    image: linuxserver/sabnzbd
     volumes:
      - /var/data/media/:/media
      - /var/data/autopirate/sabnzbd:/config
