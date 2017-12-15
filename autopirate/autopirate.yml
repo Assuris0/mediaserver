@@ -31,6 +31,38 @@ services:
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
 
+  nzbget:
+    image: linuxserver/nzbget:latest
+    env_file : /var/data/config/autopirate/nzbget.env
+    volumes:
+     - /var/data/autopirate/nzbget:/config
+    networks:
+    - traefik_public
+    ports:
+    - 5075:5075
+
+  nzbget_proxy:
+    image: zappi/oauth2_proxy
+    env_file : /var/data/config/autopirate/nzbget.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:nzbget.example.com
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://nzbget:6789
+      -redirect-url=https://nzbget.example.com
+      -http-address=http://0.0.0.0:4180
+      -email-domain=example.com
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
   lazylibrarian:
     image: linuxserver/lazylibrarian:latest
     volumes:
