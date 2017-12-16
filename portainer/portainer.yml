@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  app:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/data/portainer:/data
+    networks:
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:portainer.funkypenguin.co.nz
+        - traefik.port=9000
+      placement:
+        constraints: [node.role == manager]
+    command: -H unix:///var/run/docker.sock
+
+networks:
+  traefik_public:
+    external: true
