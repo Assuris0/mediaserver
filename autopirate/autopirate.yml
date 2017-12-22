@@ -12,6 +12,7 @@ services:
   sabnzbd_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/sabnzbd.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -36,6 +37,7 @@ services:
     env_file : /var/data/config/autopirate/nzbget.env
     volumes:
      - /var/data/autopirate/nzbget:/config
+     - /var/data/media/:/media
     networks:
     - traefik_public
     ports:
@@ -44,6 +46,7 @@ services:
   nzbget_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/nzbget.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -63,6 +66,41 @@ services:
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
 
+  rtorrent:
+    image: linuxserver/rutorrent
+    env_file : /var/data/config/autopirate/rtorrent.env
+    ports:
+     - 36898:36898
+     - 3475:80
+    volumes:
+     - /var/data/media/:/media
+     - /var/data/autopirate/rtorrent:/config
+    networks:
+    - internal
+
+  rtorrent_proxy:
+    image: skippy/oauth2_proxy
+    env_file : /var/data/config/autopirate/rtorrent.env
+    dns_search: myswarm.example.com
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:rtorrent.example.com
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://rtorrent:80
+      -redirect-url=https://rtorrent.example.com
+      -http-address=http://0.0.0.0:4180
+      -email-domain=example.com
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
   lazylibrarian:
     image: linuxserver/lazylibrarian:latest
     volumes:
@@ -74,6 +112,7 @@ services:
   lazylibrarian_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/lazylibrarian.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -104,6 +143,7 @@ services:
   mylar_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/mylar.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -134,6 +174,7 @@ services:
   ombi_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/ombi.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -164,6 +205,7 @@ services:
   headphones_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/headphones.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -194,6 +236,7 @@ services:
   plexpy_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/plexpy.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -224,6 +267,7 @@ services:
   radarr_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/radarr.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -254,6 +298,7 @@ services:
   sonarr_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/sonarr.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
@@ -284,6 +329,7 @@ services:
   nzbhydra_proxy:
     image: zappi/oauth2_proxy
     env_file : /var/data/config/autopirate/nzbhydra.env
+    dns_search: myswarm.example.com  
     networks:
       - internal
       - traefik_public
