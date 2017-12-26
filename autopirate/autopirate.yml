@@ -250,7 +250,7 @@ services:
     command: |
       -cookie-secure=false
       -upstream=http://plexpy:8181
-      -redirect-url=https://headphones.example.com
+      -redirect-url=https://plexpy.example.com
       -http-address=http://0.0.0.0:4180
       -email-domain=example.com
       -provider=github
@@ -258,6 +258,7 @@ services:
 
   radarr:
     image: linuxserver/radarr:latest
+    env_file : /var/data/config/autopirate/radarr.env
     volumes:
      - /var/data/media/:/media
      - /var/data/autopirate/radarr:/config
@@ -280,7 +281,7 @@ services:
       - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
-      -upstream=http://radarr:7171
+      -upstream=http://radarr:7878
       -redirect-url=https://radarr.example.com
       -http-address=http://0.0.0.0:4180
       -email-domain=example.com
@@ -289,6 +290,7 @@ services:
 
   sonarr:
     image: linuxserver/sonarr:latest
+    env_file : /var/data/config/autopirate/sonarr.env
     volumes:
      - /var/data/media/:/media
      - /var/data/autopirate/sonarr:/config
