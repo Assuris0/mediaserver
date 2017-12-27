@@ -1,0 +1,28 @@
+version: "3.0"
+
+services:
+  emby:
+    image: linuxserver/emby
+    env_file: /var/data/config/emby/emby.env
+    volumes:
+      - /var/data/emby/emby:/config
+      - /srv/data/:/data
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:emby.funkypenguin.co.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=8096
+    networks:
+        - traefik_public
+        - internal
+    ports:
+      - 8096:8096
+
+networks:
+  traefik_public:
+    external: true
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.16.17.0/24
