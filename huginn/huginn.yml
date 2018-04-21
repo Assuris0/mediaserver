@@ -2,6 +2,15 @@ version: '3'
 
 services:
 
+  db:
+    env_file: /var/data/config/huginn/huginn.env
+    image: postgres:latest
+    volumes:
+      - /var/data/runtime/huginn/database:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - internal
+
   huginn:
     image: huginn/huginn
     env_file: /var/data/config/huginn/huginn.env
@@ -16,18 +25,9 @@ services:
         - traefik.docker.network=traefik_public
         - traefik.port=3000
 
-  db:
-    env_file: /var/data/config/huginn/huginn.env
-    image: postgres:latest
-    volumes:
-      - /var/data/runtime/huginn/database:/var/lib/postgresql/data
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      - internal
-
   db-backup:
     image: postgres:latest
-    env_file: /var/data/config/huginn/huginn.env
+    env_file: /var/data/config/huginn/huginn-db-backup.env
     volumes:
       - /var/data/huginn/database-dump:/dump
       - /etc/localtime:/etc/localtime:ro

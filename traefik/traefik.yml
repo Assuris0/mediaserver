@@ -3,6 +3,7 @@ version: "3"
 services:
   app:
     image: traefik:v1.3.3-alpine
+    env_file : /var/data/config/traefik/traefik.env
     ports:
       - "80:80"
       - "443:443"
@@ -44,5 +45,5 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 10.1.0.0/24
+        - subnet: 172.16.200.0/24
 

@@ -29,7 +29,7 @@ services:
         - traefik.docker.network=traefik_public
         - traefik.port=8888
     volumes:
-      - /var/data/mailserver/rainloop:/rainloop/data
+      - /var/data/docker-mailserver/rainloop:/rainloop/data
 
 networks:
   traefik_public:

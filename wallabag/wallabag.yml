@@ -1,24 +1,41 @@
 version: '3'
-
 services:
+
   wallabag:
     image: wallabag/wallabag
     env_file: /var/data/config/wallabag/wallabag.env
-    volumes:
-      - /var/data/wallabag/images:/var/www/wallabag/web/assets/images
-      - /etc/localtime:/etc/localtime:ro
     networks:
       - internal
-      - traefik_public
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:wallabag.funkypenguin.co.nz
-        - traefik.docker.network=traefik
-        - traefik.port=80
+    volumes:
+      - /var/data/wallabag/images:/var/www/wallabag/web/assets/images
+
+  wallabag_proxy:
+   image: zappi/oauth2_proxy
+   env_file: /var/data/config/wallabag/wallabag.env
+   networks:
+     - internal
+     - traefik_public
+   deploy:
+     labels:
+       - traefik.frontend.rule=Host:wallabag.funkypenguin.co.nz
+       - traefik.docker.network=traefik_public
+       - traefik.port=4180
+   volumes:
+     - /var/data/config/wallabag/authenticated-emails.txt:/authenticated-emails.txt
+   command: |
+     -cookie-secure=false
+     -upstream=http://wallabag:80
+     -redirect-url=https://wallabag.funkypenguin.co.nz
+     -http-address=http://0.0.0.0:4180
+     -email-domain=funkypenguin.co.nz
+     -provider=github
+     -authenticated-emails-file=/authenticated-emails.txt
 
   db:
     image: postgres
     env_file: /var/data/config/wallabag/wallabag.env
+    dns_search: 
+      - hq.funkypenguin.co.nz
     volumes:
       - /var/data/runtime/wallabag/data:/var/lib/postgresql/data
     networks:
@@ -26,7 +43,7 @@ services:
 
   db-backup:
     image: postgres:latest
-    env_file: /var/data/config/wallabag/wallabag.env
+    env_file: /var/data/config/wallabag/wallabag-backup.env
     volumes:
       - /var/data/wallabag/database-dump:/dump
       - /etc/localtime:/etc/localtime:ro
@@ -48,6 +65,22 @@ services:
     networks:
       - internal
 
+  import-instapaper:
+    image: wallabag/wallabag
+    env_file: /var/data/config/wallabag/wallabag.env
+    networks:
+      - internal
+    command: |
+      import instapaper 
+
+  import-pocket:
+    image: wallabag/wallabag
+    env_file: /var/data/config/wallabag/wallabag.env
+    networks:
+      - internal
+    command: |
+      import pocket 
+
 networks:
   traefik_public:
     external: true
@@ -55,4 +88,5 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.10.0/24
+        - subnet: 172.16.21.0/24
+
