@@ -1,0 +1,22 @@
+# Don't include .env files (we create .env-sample files instead)
+*.env
+
+# Also, don't include specific oauth_proxy authorized emails files
+authenticated-emails.txt
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+acme.json
