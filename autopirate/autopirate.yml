@@ -225,37 +225,6 @@ services:
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
 
-  plexpy:
-    image: linuxserver/plexpy:latest
-    volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/plexpy:/config
-    networks:
-    - traefik_public
-
-  plexpy_proxy:
-    image: zappi/oauth2_proxy
-    env_file : /var/data/config/autopirate/plexpy.env
-    dns_search: myswarm.example.com  
-    networks:
-      - internal
-      - traefik_public
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:plexpy.example.com
-        - traefik.docker.network=traefik_public
-        - traefik.port=4180
-    volumes:
-      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
-    command: |
-      -cookie-secure=false
-      -upstream=http://plexpy:8181
-      -redirect-url=https://plexpy.example.com
-      -http-address=http://0.0.0.0:4180
-      -email-domain=example.com
-      -provider=github
-      -authenticated-emails-file=/authenticated-emails.txt
-
   radarr:
     image: linuxserver/radarr:latest
     env_file : /var/data/config/autopirate/radarr.env

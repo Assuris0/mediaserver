@@ -31,7 +31,7 @@ checkNewVersion = true
 #
 # Optional
 #
-# traefikLogsFile = "log/traefik.log"
+traefikLogsFile = "/traefik.log"
 
 # Access logs file
 #
@@ -91,6 +91,7 @@ checkNewVersion = true
 # Default: ["http"]
 #
 defaultEntryPoints = ["http", "https"]
+#defaultEntryPoints = ["http", "https", "ws", "wss"]
 
 # Constraints definition
 #
@@ -185,7 +186,7 @@ dnsProvider = "cloudflare"
 #
 # Optional
 #
-acmeLogging = false
+acmeLogging = true
 
 # Enable on demand certificate. This will request a certificate from Let's Encrypt during the first TLS handshake for a hostname that does not yet have a certificate.
 # WARNING, TLS handshakes will be slow when requesting a hostname certificate for the first time, this can leads to DoS attacks.

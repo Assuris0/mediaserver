@@ -2,15 +2,17 @@ version: "3"
 
 services:
   app:
-    image: traefik:v1.3.3-alpine
+    image: traefik:alpine
     env_file : /var/data/config/traefik/traefik.env
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/data/config/traefik/traefik.toml:/traefik.toml:ro
       - /var/data/config/traefik/acme.json:/acme.json
+      - /var/data/traefik/traefik.log:/traefik.log
     labels:
       - "traefik.enable=false"
     networks:
@@ -21,7 +23,7 @@ services:
     command: --web --docker --docker.swarmmode --docker.watch --docker.domain=funkypenguin.co.nz --logLevel=DEBUG
 
   proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/traefik/traefik.env
     networks:
       - public
@@ -33,7 +35,7 @@ services:
       - /var/data/config/traefik/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
-      -upstream=http://app:8080
+      -upstream=http://traefik-app:8080
       -redirect-url=https://traefik.hq.funkypenguin.co.nz
       -http-address=http://0.0.0.0:4180
       -email-domain=funkypenguin.co.nz
