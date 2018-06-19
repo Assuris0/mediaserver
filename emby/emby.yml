@@ -13,7 +13,7 @@ services:
       - 8096:8096
   
   emby_proxy:
-    image: zappi/oauth2_proxy:latest
+    image: a5huynh/oauth2_proxy:latest
     env_file : /var/data/config/emby/emby.env
     networks:
       - internal
