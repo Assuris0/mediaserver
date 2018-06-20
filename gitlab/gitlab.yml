@@ -12,24 +12,21 @@ services:
 
   postgresql:
     image: sameersbn/postgresql:9.6-2
+    env_file: /var/data/config/gitlab/gitlab.env
     volumes:
     - /var/data/gitlab/postgresql:/var/lib/postgresql:Z
     networks:
     - internal
-    environment:
-    - DB_USER=gitlab
-    - DB_PASS=<your db password>
-    - DB_NAME=gitlabhq_production
-    - DB_EXTENSION=pg_trgm
 
   gitlab:
     image: sameersbn/gitlab:latest
+    env_file: /var/data/config/gitlab/gitlab.env
     networks:
     - internal
-    - traefik
+    - traefik_public
     deploy:
       labels:
-        - traefik.frontend.rule=Host:gitlab.example.com
+        - traefik.frontend.rule=Host:gitlab.funkypenguin.co.nz
         - traefik.docker.network=traefik
         - traefik.port=80
       restart_policy:
@@ -37,13 +34,12 @@ services:
         max_attempts: 10
         window: 60s
     ports:
-    - "10022:22"
+    - "2222:22"
     volumes:
     - /var/data/gitlab/gitlab:/home/git/data:Z
-    env_file: gitlab.env
 
 networks:
-  traefik:
+  traefik_public:
     external: true
   internal:
     driver: overlay
