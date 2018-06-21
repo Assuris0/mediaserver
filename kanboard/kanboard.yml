@@ -31,25 +31,25 @@ services:
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
 
-  cron:
-    image: kanboard/kanboard
-    volumes:
-     - /var/data/kanboard/data:/var/www/app/data
-    user: nginx
-    networks:
-      - internal
-    entrypoint: |
-      bash -c 'bash -s <<EOF
-        trap "break;exit" SIGHUP SIGINT SIGTERM
-        while [ ! -f /var/www/app/config.php ]; do
-          sleep 1
-        done
-        while true; do
-          cd /var/www/app
-          ./cli cron
-          sleep 8h
-        done
-      EOF'
+#  cron:
+#    image: kanboard/kanboard
+#    volumes:
+#     - /var/data/kanboard/data:/var/www/app/data
+#    user: nginx
+#    networks:
+#      - internal
+#    entrypoint: |
+#      bash -c 'bash -s <<EOF
+#        trap "break;exit" SIGHUP SIGINT SIGTERM
+#        while [ ! -f /var/www/app/config.php ]; do
+#          sleep 1
+#        done
+#        while true; do
+#          cd /var/www/app
+#          ./cli cron
+#          sleep 8h
+#        done
+#      EOF'
 
 networks:
   traefik_public:
