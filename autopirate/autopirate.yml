@@ -10,7 +10,7 @@ services:
     - traefik_public
 
   sabnzbd_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/sabnzbd.env
     dns_search: myswarm.example.com  
     networks:
@@ -44,7 +44,7 @@ services:
     - 5075:5075
 
   nzbget_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/nzbget.env
     dns_search: myswarm.example.com  
     networks:
@@ -110,7 +110,7 @@ services:
     - traefik_public
 
   lazylibrarian_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/lazylibrarian.env
     dns_search: myswarm.example.com  
     networks:
@@ -141,7 +141,7 @@ services:
     - traefik_public
 
   mylar_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/mylar.env
     dns_search: myswarm.example.com  
     networks:
@@ -172,7 +172,7 @@ services:
     - traefik_public
 
   ombi_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/ombi.env
     dns_search: myswarm.example.com  
     networks:
@@ -203,7 +203,7 @@ services:
     - traefik_public
 
   headphones_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/headphones.env
     dns_search: myswarm.example.com  
     networks:
@@ -225,37 +225,6 @@ services:
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
 
-  plexpy:
-    image: linuxserver/plexpy:latest
-    volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/plexpy:/config
-    networks:
-    - traefik_public
-
-  plexpy_proxy:
-    image: zappi/oauth2_proxy
-    env_file : /var/data/config/autopirate/plexpy.env
-    dns_search: myswarm.example.com  
-    networks:
-      - internal
-      - traefik_public
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:plexpy.example.com
-        - traefik.docker.network=traefik_public
-        - traefik.port=4180
-    volumes:
-      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
-    command: |
-      -cookie-secure=false
-      -upstream=http://plexpy:8181
-      -redirect-url=https://plexpy.example.com
-      -http-address=http://0.0.0.0:4180
-      -email-domain=example.com
-      -provider=github
-      -authenticated-emails-file=/authenticated-emails.txt
-
   radarr:
     image: linuxserver/radarr:latest
     env_file : /var/data/config/autopirate/radarr.env
@@ -266,7 +235,7 @@ services:
     - traefik_public
 
   radarr_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/radarr.env
     dns_search: myswarm.example.com  
     networks:
@@ -298,7 +267,7 @@ services:
     - traefik_public
 
   sonarr_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/sonarr.env
     dns_search: myswarm.example.com  
     networks:
@@ -329,7 +298,7 @@ services:
     - traefik_public
 
   nzbhydra_proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/autopirate/nzbhydra.env
     dns_search: myswarm.example.com  
     networks:

@@ -14,7 +14,7 @@ services:
     command: -H unix:///var/run/docker.sock 
 
   proxy:
-    image: zappi/oauth2_proxy
+    image: a5huynh/oauth2_proxy
     env_file : /var/data/config/portainer/portainer.env
     networks:
       - internal
