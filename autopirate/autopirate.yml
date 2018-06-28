@@ -7,7 +7,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/sabnzbd:/config
     networks:
-    - traefik_public
+    - internal
 
   sabnzbd_proxy:
     image: a5huynh/oauth2_proxy
@@ -39,7 +39,7 @@ services:
      - /var/data/autopirate/nzbget:/config
      - /var/data/media/:/media
     networks:
-    - traefik_public
+    - internal
     ports:
     - 5075:5075
 
@@ -107,7 +107,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/lazylibrarian:/config
     networks:
-    - traefik_public
+    - internal
 
   lazylibrarian_proxy:
     image: a5huynh/oauth2_proxy
@@ -138,7 +138,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/mylar:/config
     networks:
-    - traefik_public
+    - internal
 
   mylar_proxy:
     image: a5huynh/oauth2_proxy
@@ -169,7 +169,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/ombi:/config
     networks:
-    - traefik_public
+    - internal
 
   ombi_proxy:
     image: a5huynh/oauth2_proxy
@@ -200,7 +200,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/headphones:/config
     networks:
-    - traefik_public
+    - internal
 
   headphones_proxy:
     image: a5huynh/oauth2_proxy
@@ -232,7 +232,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/radarr:/config
     networks:
-    - traefik_public
+    - internal
 
   radarr_proxy:
     image: a5huynh/oauth2_proxy
@@ -264,7 +264,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/sonarr:/config
     networks:
-    - traefik_public
+    - internal
 
   sonarr_proxy:
     image: a5huynh/oauth2_proxy
@@ -295,7 +295,7 @@ services:
      - /var/data/media/:/media
      - /var/data/autopirate/nzbhydra:/config
     networks:
-    - traefik_public
+    - internal
 
   nzbhydra_proxy:
     image: a5huynh/oauth2_proxy
