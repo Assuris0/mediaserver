@@ -35,7 +35,7 @@ services:
       - /var/data/config/traefik/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
-      -upstream=http://traefik-app:8080
+      -upstream=http://app:8080
       -redirect-url=https://traefik.hq.funkypenguin.co.nz
       -http-address=http://0.0.0.0:4180
       -email-domain=funkypenguin.co.nz
