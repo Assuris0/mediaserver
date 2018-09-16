@@ -55,7 +55,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
 networks:
   traefik_public:
