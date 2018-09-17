@@ -4,9 +4,9 @@ services:
   app:
     image: dakue/gollum
     volumes:
-     - /var/data/gollum:/gollum
+      - /var/data/gollum:/gollum
     networks:
-    - internal
+      - internal
     command: |
       --allow-uploads 
       --emoji
@@ -14,7 +14,7 @@ services:
       
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/gollum/gollum.env
+    env_file: /var/data/config/gollum/gollum.env
     networks:
       - internal
       - traefik_public

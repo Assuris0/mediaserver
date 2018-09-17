@@ -4,14 +4,14 @@ services:
   sabnzbd:
     image: linuxserver/sabnzbd
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/sabnzbd:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/sabnzbd:/config
     networks:
-    - internal
+      - internal
 
   sabnzbd_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/sabnzbd.env
+    env_file: /var/data/config/autopirate/sabnzbd.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -34,18 +34,18 @@ services:
 
   nzbget:
     image: linuxserver/nzbget:latest
-    env_file : /var/data/config/autopirate/nzbget.env
+    env_file: /var/data/config/autopirate/nzbget.env
     volumes:
-     - /var/data/autopirate/nzbget:/config
-     - /var/data/media/:/media
+      - /var/data/autopirate/nzbget:/config
+      - /var/data/media/:/media
     networks:
-    - internal
+      - internal
     ports:
-    - 5075:5075
+      - 5075:5075
 
   nzbget_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/nzbget.env
+    env_file: /var/data/config/autopirate/nzbget.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -68,19 +68,19 @@ services:
 
   rtorrent:
     image: linuxserver/rutorrent
-    env_file : /var/data/config/autopirate/rtorrent.env
+    env_file: /var/data/config/autopirate/rtorrent.env
     ports:
-     - 36898:36898
-     - 3475:80
+      - 36898:36898
+      - 3475:80
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/rtorrent:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/rtorrent:/config
     networks:
-    - internal
+      - internal
 
   rtorrent_proxy:
     image: skippy/oauth2_proxy
-    env_file : /var/data/config/autopirate/rtorrent.env
+    env_file: /var/data/config/autopirate/rtorrent.env
     dns_search: myswarm.example.com
     networks:
       - internal
@@ -104,14 +104,14 @@ services:
   lazylibrarian:
     image: linuxserver/lazylibrarian:latest
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/lazylibrarian:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/lazylibrarian:/config
     networks:
-    - internal
+      - internal
 
   lazylibrarian_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/lazylibrarian.env
+    env_file: /var/data/config/autopirate/lazylibrarian.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -135,14 +135,14 @@ services:
   mylar:
     image: linuxserver/mylar:latest
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/mylar:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/mylar:/config
     networks:
-    - internal
+      - internal
 
   mylar_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/mylar.env
+    env_file: /var/data/config/autopirate/mylar.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -166,14 +166,14 @@ services:
   ombi:
     image: linuxserver/ombi:latest
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/ombi:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/ombi:/config
     networks:
-    - internal
+      - internal
 
   ombi_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/ombi.env
+    env_file: /var/data/config/autopirate/ombi.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -197,14 +197,14 @@ services:
   headphones:
     image: linuxserver/headphones:latest
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/headphones:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/headphones:/config
     networks:
-    - internal
+      - internal
 
   headphones_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/headphones.env
+    env_file: /var/data/config/autopirate/headphones.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -227,16 +227,16 @@ services:
 
   radarr:
     image: linuxserver/radarr:latest
-    env_file : /var/data/config/autopirate/radarr.env
+    env_file: /var/data/config/autopirate/radarr.env
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/radarr:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/radarr:/config
     networks:
-    - internal
+      - internal
 
   radarr_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/radarr.env
+    env_file: /var/data/config/autopirate/radarr.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -259,16 +259,16 @@ services:
 
   sonarr:
     image: linuxserver/sonarr:latest
-    env_file : /var/data/config/autopirate/sonarr.env
+    env_file: /var/data/config/autopirate/sonarr.env
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/sonarr:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/sonarr:/config
     networks:
-    - internal
+      - internal
 
   sonarr_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/sonarr.env
+    env_file: /var/data/config/autopirate/sonarr.env
     dns_search: myswarm.example.com  
     networks:
       - internal
@@ -292,14 +292,14 @@ services:
   nzbhydra:
     image: linuxserver/hydra:latest
     volumes:
-     - /var/data/media/:/media
-     - /var/data/autopirate/nzbhydra:/config
+      - /var/data/media/:/media
+      - /var/data/autopirate/nzbhydra:/config
     networks:
-    - internal
+      - internal
 
   nzbhydra_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/autopirate/nzbhydra.env
+    env_file: /var/data/config/autopirate/nzbhydra.env
     dns_search: myswarm.example.com  
     networks:
       - internal

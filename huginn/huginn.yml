@@ -15,10 +15,10 @@ services:
     image: huginn/huginn
     env_file: /var/data/config/huginn/huginn.env
     volumes:
-    - /etc/localtime:/etc/localtime:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
-    - internal   
-    - traefik_public
+      - internal   
+      - traefik_public
     deploy:
       labels:
         - traefik.frontend.rule=Host:huginn.funkypenguin.co.nz
@@ -42,7 +42,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
 networks:
   traefik_public:

@@ -43,7 +43,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
   redis:
     image: redis:alpine
@@ -57,7 +57,7 @@ services:
     networks:
       - internal
     volumes:
-    - /var/data/runtime/nextcloud/solr:/opt/solr/server/solr/mycores
+      - /var/data/runtime/nextcloud/solr:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate

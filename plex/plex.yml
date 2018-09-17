@@ -13,32 +13,32 @@ services:
         - traefik.docker.network=traefik_public
         - traefik.port=32400
     networks:
-        - traefik_public
-        - internal
+      - traefik_public
+      - internal
     ports:
-        - 32469:32469
-        - 32400:32400
-        - 32401:32401
-        - 3005:3005
-        - 8324:8324
-        - 1900:1900/udp
-        - 32410:32410/udp
-        - 32412:32412/udp
-        - 32413:32413/udp
-        - 32414:32414/udp
+      - 32469:32469
+      - 32400:32400
+      - 32401:32401
+      - 3005:3005
+      - 8324:8324
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
 
   tautulli:
     image: linuxserver/tautulli:latest
-    env_file : /var/data/config/plex/tautulli.env
+    env_file: /var/data/config/plex/tautulli.env
     volumes:
-     - /srv/data/:/data
-     - /var/data/autopirate/tautulli:/config
+      - /srv/data/:/data
+      - /var/data/autopirate/tautulli:/config
     networks:
-    - internal
+      - internal
 
   tautulli_proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/plex/tautulli.env
+    env_file: /var/data/config/plex/tautulli.env
     dns_search: hq.funkypenguin.co.nz
     networks:
       - internal
@@ -66,7 +66,7 @@ services:
       - /usr/share/zoneinfo/Pacific/Auckland:/etc/localtime:ro
       - /var/data/plex/plex-cron:/config:ro
     networks:
-    - internal
+      - internal
 
 networks:
   traefik_public:
