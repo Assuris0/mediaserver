@@ -5,10 +5,10 @@ services:
     image: miniflux/miniflux:2.0.7
     env_file: /var/data/config/miniflux/miniflux.env
     volumes:
-     - /etc/localtime:/etc/localtime:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
-    - internal
-    - traefik_public
+      - internal
+      - traefik_public
     deploy:
       labels:
         - traefik.frontend.rule=Host:miniflux.funkypenguin.co.nz
@@ -41,7 +41,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
 networks:
   traefik_public:
@@ -51,4 +51,3 @@ networks:
     ipam:
       config:
         - subnet: 172.16.22.0/24
-

@@ -12,7 +12,7 @@ services:
 
   db-backup:
     image: mongo:latest
-    env_file : /var/data/config/wekan/wekan.env
+    env_file: /var/data/config/wekan/wekan.env
     volumes:
       - /var/data/wekan/database-dump:/dump
     entrypoint: |
@@ -26,18 +26,18 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
  
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/wekan/wekan.env
+    env_file: /var/data/config/wekan/wekan.env
     networks:
-      - traefik
+      - traefik_public
       - internal
     deploy:
       labels:
         - traefik.frontend.rule=Host:wekan.funkypenguin.co.nz
-        - traefik.docker.network=traefik
+        - traefik.docker.network=traefik_public
         - traefik.port=4180
     volumes:
       - /var/data/config/wekan/authenticated-emails.txt:/authenticated-emails.txt
@@ -59,7 +59,7 @@ services:
       - MONGO_URL=mongodb://db:27017/wekan
 
 networks:
-  traefik:
+  traefik_public:
     external: true
   internal:
     driver: overlay

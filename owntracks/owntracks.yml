@@ -3,7 +3,7 @@ version: "3.0"
 services:
     owntracks-app:
       image: funkypenguin/owntracks
-      env_file : /var/data/config/owntracks/owntracks.env
+      env_file: /var/data/config/owntracks/owntracks.env
       volumes:
         - /var/data/owntracks:/owntracks
       networks:
@@ -15,7 +15,7 @@ services:
 
     owntracks-proxy:
       image: a5huynh/oauth2_proxy
-      env_file : /var/data/config/owntracks/owntracks.env
+      env_file: /var/data/config/owntracks/owntracks.env
       dns_search: hq.funkypenguin.co.nz
       networks:
         - internal

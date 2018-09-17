@@ -4,14 +4,14 @@ services:
   app:
     image: kanboard/kanboard
     volumes:
-     - /var/data/kanboard/data:/var/www/app/data
-     - /var/data/kanboard/plugins:/var/www/app/plugins
+      - /var/data/kanboard/data:/var/www/app/data
+      - /var/data/kanboard/plugins:/var/www/app/plugins
     networks:
-    - internal
+      - internal
 
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/kanboard/kanboard.env
+    env_file: /var/data/config/kanboard/kanboard.env
     networks:
       - internal
       - traefik_public

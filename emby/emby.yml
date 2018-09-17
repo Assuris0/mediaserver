@@ -8,13 +8,13 @@ services:
       - /var/data/emby/emby:/config
       - /srv/data/:/data
     networks:
-        - internal
+      - internal
     ports:
       - 8096:8096
   
   emby_proxy:
     image: a5huynh/oauth2_proxy:latest
-    env_file : /var/data/config/emby/emby.env
+    env_file: /var/data/config/emby/emby.env
     networks:
       - internal
       - traefik_public

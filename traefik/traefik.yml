@@ -3,7 +3,7 @@ version: "3"
 services:
   app:
     image: traefik:alpine
-    env_file : /var/data/config/traefik/traefik.env
+    env_file: /var/data/config/traefik/traefik.env
     ports:
       - "80:80"
       - "443:443"
@@ -24,7 +24,7 @@ services:
 
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/traefik/traefik.env
+    env_file: /var/data/config/traefik/traefik.env
     networks:
       - public
     deploy:

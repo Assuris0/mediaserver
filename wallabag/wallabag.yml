@@ -58,7 +58,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
   redis:
     image: redis:alpine

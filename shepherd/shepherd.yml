@@ -3,7 +3,7 @@ version: "3"
 services:
   shepherd-app:
     image: mazzolino/shepherd
-    env_file : /var/data/config/shepherd/shepherd.env
+    env_file: /var/data/config/shepherd/shepherd.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:

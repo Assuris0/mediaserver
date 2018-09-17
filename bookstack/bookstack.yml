@@ -12,7 +12,7 @@ services:
 
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/bookstack/bookstack.env
+    env_file: /var/data/config/bookstack/bookstack.env
     networks:
       - internal
       - traefik_public
@@ -55,7 +55,7 @@ services:
       done
       EOF'
     networks:
-    - internal
+      - internal
 
 networks:
   traefik_public:

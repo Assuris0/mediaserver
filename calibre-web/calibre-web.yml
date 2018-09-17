@@ -3,17 +3,17 @@ version: '3'
 services:
   app:
     image: technosoft2000/calibre-web
-    env_file : /var/data/config/calibre-web/calibre-web.env
+    env_file: /var/data/config/calibre-web/calibre-web.env
     volumes:
-     - /var/data/calibre-web:/config
-     # Set this next volume to wherever you store your Calibre library. From the container's perspective, this has to be /books/
-     - /srv/data/Archive/Ebooks/calibre:/books
+      - /var/data/calibre-web:/config
+      # Set this next volume to wherever you store your Calibre library. From the container's perspective, this has to be /books/
+      - /srv/data/Archive/Ebooks/calibre:/books
     networks:
-    - internal
+      - internal
       
   proxy:
     image: a5huynh/oauth2_proxy
-    env_file : /var/data/config/calibre-web/calibre-web.env
+    env_file: /var/data/config/calibre-web/calibre-web.env
     dns_search: hq.funkypenguin.co.nz
     networks:
       - internal
