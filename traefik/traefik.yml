@@ -10,7 +10,7 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/data/config/traefik:etc/traefik
+      - /var/data/config/traefik:/etc/traefik
       - /var/data/traefik/traefik.log:/traefik.log
     labels:
       - "traefik.enable=false"
