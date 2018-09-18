@@ -5,7 +5,7 @@ services:
     image: linuxserver/plex
     env_file: /var/data/config/plex/plex.env
     volumes:
-      - /srv/ssd-data/htpc/plex:/config
+      - /var/data/plex/config:/config
       - /srv/data/:/data
     deploy:
       labels:
