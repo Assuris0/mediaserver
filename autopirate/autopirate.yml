@@ -288,6 +288,39 @@ services:
       -email-domain=example.com
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
+      
+  lidarr:
+    image: linuxserver/lidarr:latest
+    env_file: /var/data/config/autopirate/lidarr.env
+    volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - /var/data/media:/media
+     - /var/data/autopirate/lidarr:/config          
+    networks:
+     - internal
+
+  lidarr_proxy:
+    image: a5huynh/oauth2_proxy
+    env_file : /var/data/config/autopirate/lidarr.env
+    dns_search: myswarm.example.com
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:lidarr.example.com		
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://lidarr:8686
+      -redirect-url=https://lidarr.example.com
+      -http-address=http://0.0.0.0:4180
+      -email-domain=example.com
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
 
   nzbhydra:
     image: linuxserver/hydra:latest
