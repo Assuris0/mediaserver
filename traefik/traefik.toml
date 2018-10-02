@@ -31,7 +31,7 @@ checkNewVersion = true
 #
 # Optional
 #
-traefikLogsFile = "/traefik.log"
+# traefiklog.filepath = "/traefik.log"
 
 # Access logs file
 #
