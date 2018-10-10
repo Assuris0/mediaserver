@@ -10,7 +10,7 @@ services:
       - internal
 
   realms_proxy:
-    image: a5huynh/oauth2_proxy:latest
+    image: funkypenguin/oauth2_proxy:latest
     env_file : /var/data/config/realms/realms.env
     networks:
       - internal
