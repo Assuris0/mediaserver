@@ -7,11 +7,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/data/config/traefik:/etc/traefik
       - /var/data/traefik/traefik.log:/traefik.log
+      - /var/data/traefik/acme.json:/acme.json
     labels:
       - "traefik.enable=false"
     networks:
@@ -28,14 +28,14 @@ services:
       - public
     deploy:
       labels:
-        - traefik.frontend.rule=Host:traefik.hq.funkypenguin.co.nz
+        - traefik.frontend.rule=Host:traefik.funkypenguin.co.nz
         - traefik.port=4180
     volumes:
       - /var/data/config/traefik/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
       -upstream=http://app:8080
-      -redirect-url=https://traefik.hq.funkypenguin.co.nz
+      -redirect-url=https://traefik.funkypenguin.co.nz
       -http-address=http://0.0.0.0:4180
       -email-domain=funkypenguin.co.nz
       -provider=github

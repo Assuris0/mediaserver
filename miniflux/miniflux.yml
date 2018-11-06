@@ -2,7 +2,7 @@ version: '3'
 
 services:
   miniflux:
-    image: miniflux/miniflux:2.0.7
+    image: miniflux/miniflux:2.0.11
     env_file: /var/data/config/miniflux/miniflux.env
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -26,7 +26,7 @@ services:
 
   db-backup:
     image: postgres:10.1
-    env_file: /var/data/config/miniflux/miniflux.env
+    env_file: /var/data/config/miniflux/miniflux-backup.env
     volumes:
       - /var/data/miniflux/database-dump:/dump
       - /etc/localtime:/etc/localtime:ro
