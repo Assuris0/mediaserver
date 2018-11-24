@@ -1,13 +1,12 @@
-version: '3.3'
+version: '3'
 services:
   db:
-    # use official mattermost prod-db image
     image: mattermost/mattermost-prod-db
     networks:
       - internal
     volumes:
       # use a named-volume for data persistency
-      - /share/runtime/mattermost/data:/var/lib/postgresql/data
+      - /var/data/runtime/mattermost/db:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
     environment:
       - POSTGRES_USER=mmuser
@@ -18,44 +17,25 @@ services:
       # - AWS_SECRET_ACCESS_KEY=XXXX
       # - WALE_S3_PREFIX=s3://BUCKET_NAME/PATH
       # - AWS_REGION=us-east-1
-    deploy:
-      restart_policy:
-        condition: on-failure
 
   app:
-    # use official mattermost prod-app image
     image: mattermost/mattermost-prod-app
     networks:
       - internal
       - traefik_public
     volumes:
-      - /share/appdata/mattermost/config:/mattermost/config:rw
-      - /share/appdata/mattermost/data:/mattermost/data:rw
-      - /share/appdata/mattermost/logs:/mattermost/logs:rw
-      - /share/appdata/mattermost/plugins/plugins:/mattermost/plugins:rw
-      - /share/appdata/mattermost/plugins/client:/mattermost/client/plugins:rw      
+      - /var/data/mattermost/config:/mattermost/config:rw
+      - /var/data/mattermost/data:/mattermost/data:rw
+      - /var/data/mattermost/logs:/mattermost/logs:rw
+      - /var/data/mattermost/plugins/plugins:/mattermost/plugins:rw
+      - /var/data/mattermost/plugins/client:/mattermost/client/plugins:rw      
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      # use service's hostname
-      - DB_HOST=db
-      # talk to the port within the overlay network
-      # without (over)exposing ports
-      - DB_PORT_NUMBER=5432
-      - MM_USERNAME=mmuser
-      - MM_PASSWORD=mmuser_password
-      - MM_DBNAME=mattermost
-      # pass the edition to be used, default is enterprise
-      # setting this env var will make the app use the team edition
-      - edition=team
-      # in case your config is not in default location
-      # - MM_CONFIG=/mattermost/config/config.json
+    env_file: /var/data/config/mattermost/mattermost.env
     deploy:
       labels:
         - traefik.docker.network=traefik_public
-        - traefik.frontend.rule=Host:mattermost.gkoerk.com
+        - traefik.frontend.rule=Host:mattermost.funkypenguin.co.nz
         - traefik.port=8000
-      restart_policy:
-        condition: on-failure
 
 networks:
   traefik_public:
@@ -64,4 +44,4 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.179.0/24
+        - subnet: 172.16.40.0/24
