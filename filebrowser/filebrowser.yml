@@ -1,6 +1,7 @@
 version: '3'
+
 services:
-  filebrowser:
+  app:
     image: filebrowser/filebrowser
     volumes:
       # Base scope of filebrowser access on your server MUST BE CHANGED
@@ -25,11 +26,12 @@ services:
 /var/data/config/filebrowser/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
-      -upstream=http://filebrowser:80
+      -upstream=http://app:80
       -redirect-url=https://filebrowser.funkypenguin.co.nz
       -http-address=http://0.0.0.0:4180
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
+      
 networks:
   traefik_public:
     external: true
@@ -37,4 +39,4 @@ networks:
     driver: overlay
     ipam:
       config:
-        - subnet: 172.16.246.0/24
+        - subnet: 172.16.46.0/24
