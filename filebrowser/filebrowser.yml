@@ -23,8 +23,7 @@ services:
         - traefik.docker.network=traefik_public
         - traefik.port=4180
     volumes:
-      - 
-/var/data/config/filebrowser/authenticated-emails.txt:/authenticated-emails.txt
+      - /var/data/config/filebrowser/authenticated-emails.txt:/authenticated-emails.txt
     command: |
       -cookie-secure=false
       -upstream=http://app:80
