@@ -1,15 +1,16 @@
 version: '3'
 
 services:
+
   app:
     image: filebrowser/filebrowser
     volumes:
       # Base scope of filebrowser access on your server MUST BE CHANGED
       - /var/data:/srv
-      - /var/data/config/filebrowser/config.json:/etc/config.json
-      - /var/data/runtime/filebrowser/database.db:/etc/database.db
+      - /var/data/config/filebrowser/:/etc/
     networks:
       - internal
+      
   proxy:
     image: funkypenguin/oauth2_proxy:latest
     env_file: /var/data/config/filebrowser/filebrowser.env
