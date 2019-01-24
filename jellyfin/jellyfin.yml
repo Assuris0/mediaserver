@@ -1,0 +1,16 @@
+version: "3.0"
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    env_file: /var/data/config/jellyfin/jellyfin.env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/data/jellyfin/:/config
+      - /srv/data/:/data
+    networks:
+      - traefik_public
+
+networks:
+  traefik_public
+    external: true  
