@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: unifi
+  name: controller
+  labels:
+    app: controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: controller
+  template:
+    metadata:
+      labels:
+        app: controller
+    spec:
+      containers:
+        - image: linuxserver/unifi
+          name: controller
+          resources:
+# populate these after doing some measurements
+#            requests:
+#              memory: "10Mi"
+#              cpu: "0.01"
+#            limits:
+#              memory: "50Mi"
+#              cpu: "0.02"
+          volumeMounts:
+            - name: controller-volumeclaim
+              mountPath: /config
+      volumes:
+        - name: controller-volumeclaim
+          persistentVolumeClaim:
+            claimName: controller-volumeclaim
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: controller
+  namespace: unifi
+spec:
+  selector:
+    app: controller
+  ports:
+  - protocol: TCP
+    port: 8443
+  clusterIP: None
