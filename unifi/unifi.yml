@@ -11,7 +11,7 @@ services:
       - traefik_public
     ports:
       - 8080:8080
-      - 8843:8843
+      - 8443:8343
       - 8880:8880
     deploy:
       labels:

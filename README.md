@@ -1,6 +1,6 @@
 # Funky Penguin's Geek Cookbook Premix
 
-This repository contains the "premix" configs for the geeky self-hosted recipies found at https://geek-cookbook.funkypenguin.co.nz/
+This repository contains the "premix" configs for the geeky self-hosted recipes found at https://geek-cookbook.funkypenguin.co.nz/
 
 ## Introduction
 
@@ -10,7 +10,7 @@ These are my (David's) personal configs, often more up-to-date than what's publi
 
 1. At a high level, ```git pull git@gitlab.com:funkypenguin/geek-cookbook-premix.git /var/data/config```.
 2. For each recipe, edit the .yml and replace my config (data paths, funkypenguin.co.nz domain name, etc) with yours
-3. Where a ```<recipie name>.env-sample``` exists, rename this to ```<recipe-name>.env```, and customize
+3. Where a ```<recipe name>.env-sample``` exists, rename this to ```<recipe-name>.env```, and customize
 
 ## Where to go for help?
 
