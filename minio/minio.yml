@@ -10,7 +10,7 @@ services:
       - traefik_public
     deploy:
       labels:
-        - traefik.frontend.rule=Host:minio.example.com
+        - traefik.frontend.rule=Host:minio.funkypenguin.co.nz
         - traefik.port=9000
     command:  minio server /data
 
