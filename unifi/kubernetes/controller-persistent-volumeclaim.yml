@@ -1,10 +1,10 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: unifi-volumeclaim
+  name: controller-volumeclaim
   namespace: unifi
   annotations:
-    backup.kubernetes.io/deltas: PT1H P1D P7D
+    backup.kubernetes.io/deltas: P1D P7D
 spec:
   accessModes:
     - ReadWriteOnce
