@@ -32,6 +32,68 @@ services:
       -email-domain=funkypenguin.co.nz
       -provider=github
       -authenticated-emails-file=/authenticated-emails.txt
+
+  oscarr:
+    image: morpheus65535/oscarr:latest
+    env_file: /var/data/config/autopirate/oscarr.env
+    volumes:
+      - /var/data/autopirate/oscarr:/oscarr/data
+    networks:
+      - internal
+
+  oscarr_proxy:
+    image: funkypenguin/oauth2_proxy:latest
+    env_file: /var/data/config/autopirate/oscarr.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:oscarr.funkypenguin.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /etc/localtime:/etc/localtime:ro  
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://oscarr:5656
+      -redirect-url=https://oscarr.funkypenguin.co.nz
+      -http-address=http://0.0.0.0:4180
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
+
+  bazarr:
+    image: linuxserver/bazarr:latest
+    env_file: /var/data/config/autopirate/bazarr.env
+    volumes:
+      - /share/appdata/autopirate/bazarr:/config
+      - /var/data/media/tv:/tv
+      - /var/data/media/movies:/movies
+    networks:
+      - internal
+        
+  bazarr_proxy:
+    image: funkypenguin/oauth2_proxy:latest
+    env_file: /var/data/config/autopirate/bazarr.env
+    networks:
+      - internal
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:bazarr.funkypenguin.nz
+        - traefik.docker.network=traefik_public
+        - traefik.port=4180
+    volumes:
+      - /etc/localtime:/etc/localtime:ro  
+      - /var/data/config/autopirate/authenticated-emails.txt:/authenticated-emails.txt
+    command: |
+      -cookie-secure=false
+      -upstream=http://bazarr:6767
+      -redirect-url=https://bazarr.funkypenguin.nz
+      -http-address=http://0.0.0.0:4180
+      -provider=github
+      -authenticated-emails-file=/authenticated-emails.txt
       
   sabnzbd:
     image: linuxserver/sabnzbd
