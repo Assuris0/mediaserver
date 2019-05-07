@@ -65,6 +65,16 @@ spec:
               secretKeyRef:
                 name: huginn-credentials
                 key: invitation_code.secret
+          - name: TWITTER_OAUTH_KEY
+            valueFrom:
+              secretKeyRef:
+                name: huginn-credentials
+                key: twitter-api-key.secret
+          - name: TWITTER_OAUTH_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: huginn-credentials
+                key: twitter-api-secret.secret
 ---
 kind: Service
 apiVersion: v1
