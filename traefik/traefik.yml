@@ -1,47 +1,22 @@
-version: "3"
+version: "3.2"
+
+# What is this?
+#
+# This stack exists solely to deploy the traefik_public overlay network, so that
+# other stacks (including traefik-app) can attach to it
 
 services:
-  app:
-    image: traefik:alpine
-    env_file: /var/data/config/traefik/traefik.env
-    # Note below that we use host mode to avoid source nat being applied to our ingress HTTP/HTTPS sessions
-    # Without host mode, all inbound sessions would have the source IP of the swarm nodes, rather than the
-    # original source IP, which would impact logging. If you don't care about this, you can expose ports the 
-    # "minimal" way instead
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
-      - target: 8080
-        published: 8080
-        protocol: tcp
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/data/config/traefik:/etc/traefik
-      - /var/data/traefik/traefik.log:/traefik.log
-      - /var/data/traefik/acme.json:/acme.json
-    labels:
-      - "traefik.enable=false"
+  scratch:
+    image: scratch
+    deploy: 
+      replicas: 0
     networks:
       - public
-    # Global mode makes an instance of traefik listen on _every_ node, so that regardless of which
-    # node the request arrives on, it'll be forwarded to the correct backend service.
-    deploy:
-      mode: global
-      placement:
-        constraints: [node.role == manager]
-      placement:
-        constraints: [node.role == manager]                                                   
-    command: --web --docker --docker.swarmmode --docker.watch --docker.domain=funkypenguin.co.nz --logLevel=DEBUG
 
 networks:
-  traefik_public:
+  public:
     driver: overlay
+    attachable: true
     ipam:
       config:
         - subnet: 172.16.200.0/24
