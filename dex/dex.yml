@@ -5,8 +5,8 @@ services:
     image: mdbraber/dex 
     volumes:
       - /etc/localtime:/etc/localtime:ro    
-      - ./config.yml:/config.yml
-      - ./db:/db
+      - /var/data/dex/config/config.yml:/config.yml
+      - /var/data/dex/db:/db
     networks:
       - traefik_public
     command: ['serve','/config.yml']
@@ -19,8 +19,3 @@ services:
 networks:
   traefik_public:
     external: true
-  internal:
-    driver: overlay
-    ipam:
-      config:
-        - subnet: 172.30.51.0/24
