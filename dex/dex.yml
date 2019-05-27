@@ -12,7 +12,7 @@ services:
     command: ['serve','/config.yml']
     deploy:
       labels:
-        - traefik.frontend.rule=Host:dex.mdbraber.net
+        - traefik.frontend.rule=Host:dexhq.funkypenguin.co.nz
         - traefik.port=5556
         - traefik.docker.network=traefik_public
 
