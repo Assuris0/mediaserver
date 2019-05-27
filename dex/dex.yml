@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  dex:
+    image: mdbraber/dex 
+    volumes:
+      - /etc/localtime:/etc/localtime:ro    
+      - ./config.yml:/config.yml
+      - ./db:/db
+    networks:
+      - traefik_public
+    command: ['serve','/config.yml']
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:dex.mdbraber.net
+        - traefik.port=5556
+        - traefik.docker.network=traefik_public
+
+networks:
+  traefik_public:
+    external: true
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.30.51.0/24
