@@ -37,6 +37,7 @@ services:
         - traefik.frontend.auth.forward.address=http://traefik-forward-auth:4181
         - traefik.frontend.auth.forward.authResponseHeaders=X-Forwarded-User
         - traefik.frontend.auth.forward.trustForwardHeader=true
+        - traefik.docker.network=traefik_public
       placement:
         constraints: [node.role == manager]
     command: --web --docker --docker.swarmmode --docker.watch --docker.domain=funkypenguin.co.nz --logLevel=DEBUG
