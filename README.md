@@ -8,7 +8,7 @@ These are my (David's) personal configs, often more up-to-date than what's publi
 
 ## How to use ?
 
-1. At a high level, ```git pull git@gitlab.com:funkypenguin/geek-cookbook-premix.git /var/data/config```.
+1. At a high level, ```git pull git@github.com:funkypenguin/geek-cookbook-premix.git /var/data/config```.
 2. For each recipe, edit the .yml and replace my config (data paths, funkypenguin.co.nz domain name, etc) with yours
 3. Where a ```<recipe name>.env-sample``` exists, rename this to ```<recipe-name>.env```, and customize
 
