@@ -1,0 +1,15 @@
+dependencies:
+- name: kured
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.4.x
+- name: nginx-ingress
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.25.x
+- name: goldilocks
+  repository: https://charts.fairwinds.com/stable
+  version: 2.1.0
+- name: cert-manager
+  repository: https://charts.jetstack.io
+  version: v0.13.0
+digest: sha256:49a49e1b4b3c5eef56ce061125b46d0d2ab8ce4653c8996e67e381e723be83ec
+generated: "2020-01-31T22:17:10.088584+13:00"

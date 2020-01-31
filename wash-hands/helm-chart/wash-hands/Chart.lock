@@ -1,0 +1,12 @@
+dependencies:
+- name: kured
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.4.x
+- name: nginx-ingress
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.25.x
+- name: goldilocks
+  repository: https://charts.fairwinds.com/stable
+  version: 2.1.0
+digest: sha256:4b956eaaf5fa618655aab43248c54b9f80cc164e81a6edeb544f7bcbebbebfe9
+generated: "2020-01-24T23:01:57.06378+13:00"
