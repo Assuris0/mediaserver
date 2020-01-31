@@ -13,7 +13,7 @@ jobs:
       uses: J12934/helm-gh-pages-action@v1.1.0
       with:
         # A personal access token needed to push your site after it has been built.
-        access-token: ${{ secret.github_access_token }}
+        access-token: ${{ secret.GITHUB_PERSONAL_ACCESS_TOKEN }}
         # The branch expected by GitHub to have the static files needed for your site.
         deploy-branch: # optional, default is master
         # The folder in which the helm charts are located
