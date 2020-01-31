@@ -26,7 +26,7 @@ stages:
       inputs:
         helmVersion: 3.0.2
 
-    - bash: helm package --version $(build.buildId) --destination $(build.artifactStagingDirectory) $(system.defaultWorkingDirectory)/deploy/helm/$(projectName)
+    - bash: helm package --version $(build.buildId) --destination $(build.artifactStagingDirectory) $(system.defaultWorkingDirectory)/$(projectName)/helm-chart/$(projectName)
       displayName: 'helm package'
 
     - bash: az acr helm push -n $(registryServerName) -u $(registryLogin) -p $(registryPassword) $(build.artifactStagingDirectory)/$(projectName)-$(build.buildId).tgz
