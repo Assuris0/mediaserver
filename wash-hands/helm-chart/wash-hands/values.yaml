@@ -1,10 +1,10 @@
 
 
 # This instructs AKS to assign an _internal_ loadbalancer IP to the service
-nginx-ingress:
-  controller:
-    service:
-#      loadBalancerIP: set-this-if-you-have-a-static-lb-ip
+# nginx-ingress:
+#   controller:
+#     service:
+# #      loadBalancerIP: set-this-if-you-have-a-static-lb-ip
 
 goldilocks:
 
@@ -25,3 +25,12 @@ goldilocks:
       - host: this.isnt.working.yet
         paths:
         - /
+
+certmanager:
+  letsencrypt:
+    email: your@email.here
+    dns01:
+      cloudflare:
+        enabled: true
+        email: your@email.here
+        api_token: your-api-token-here

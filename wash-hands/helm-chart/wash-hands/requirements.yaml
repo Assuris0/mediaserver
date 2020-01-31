@@ -8,3 +8,6 @@ dependencies:
   - name: goldilocks
     version: 2.1.0
     repository: https://charts.fairwinds.com/stable
+  - name: cert-manager
+    version: v0.13.0
+    repository: https://charts.jetstack.io    
