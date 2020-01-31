@@ -53,12 +53,12 @@ stages:
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'helm repo add $(registryServerName) https://$(registryServerName).azurecr.io/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
+              script: 'helm repo add $(registryServerName) https://$(registryServerName)/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
 
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'echo helm repo add $(registryServerName) https://$(registryServerName).azurecr.io/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
+              script: 'echo helm repo add $(registryServerName) https://$(registryServerName)/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
 
 
           - task: HelmDeploy@0
