@@ -2,6 +2,7 @@ name: $(Build.BuildId)
 
 # Trigger on push to master
 trigger:
+- add-wash-hands
 - master
 
 pool:
