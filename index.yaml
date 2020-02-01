@@ -1,0 +1,11 @@
+apiVersion: v1
+entries:
+  wash-hands:
+  - apiVersion: v1
+    created: "2020-02-01T01:42:53.651445304Z"
+    digest: a2fd75fc16f6108e9fa1e93926eb7454f37e5457ba293896e36c2a15ab1c56bb
+    name: wash-hands
+    urls:
+    - wash-hands-0.0.1.tgz
+    version: 0.0.1
+generated: "2020-02-01T01:42:53.644653519Z"
