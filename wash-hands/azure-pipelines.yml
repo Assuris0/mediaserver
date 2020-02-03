@@ -16,23 +16,23 @@ variables:
 
 stages:
 
-- stage: prepare
-  jobs:
-  - job: preparejob
+# - stage: prepare
+#   jobs:
+#   - job: preparejob
 
-    steps:
+#     steps:
 
-    - task: HelmInstaller@0
-      displayName: 'Install Helm'
-      inputs:
-        helmVersion: 3.0.2
+#     - task: HelmInstaller@0
+#       displayName: 'Install Helm'
+#       inputs:
+#         helmVersion: 3.0.2
 
-    - bash: helm package --version $(build.buildId) --destination $(build.artifactStagingDirectory) $(system.defaultWorkingDirectory)/$(projectName)/helm-chart/$(projectName)
-      displayName: 'helm package'
+#     - bash: helm package --version $(build.buildId) --destination $(build.artifactStagingDirectory) $(system.defaultWorkingDirectory)/$(projectName)/helm-chart/$(projectName)
+#       displayName: 'helm package'
 
-    - bash: az acr helm push -n $(registryServerName) -u $(registryLogin) -p $(registryPassword) $(build.artifactStagingDirectory)/$(projectName)-$(build.buildId).tgz
-      displayName: 'az acr helm push'
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+#     # - bash: az acr helm push -n $(registryServerName) -u $(registryLogin) -p $(registryPassword) $(build.artifactStagingDirectory)/$(projectName)-$(build.buildId).tgz
+#     #   displayName: 'az acr helm push'
+#     #   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
           
 
 - stage: Deploy_In_Dev # Deploy artifacts to the dev environment
@@ -53,13 +53,7 @@ stages:
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'helm repo add $(registryServerName) https://$(registryServerName)/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
-
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: 'echo helm repo add $(registryServerName) https://$(registryServerName)/helm/v1/repo --username $(registryLogin) --password $(registryPassword) && helm repo update'
-
+              script: 'helm repo add geek-cookbook-premix https://$(GITHUB_PERSONAL_ACCESS_TOKEN)@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/' && helm repo update'
 
           - task: HelmDeploy@0
             inputs:
@@ -71,5 +65,5 @@ stages:
               namespace: '$(projectName)'
               command: 'upgrade'
               chartType: 'Name'
-              chartName: '$(registryServerName)/$(projectName)'
+              chartName: 'geek-cookbook-premix/$(projectName)'
               releaseName: '$(projectName)'
