@@ -53,7 +53,7 @@ stages:
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'helm repo add geek-cookbook-premix https://$(GITHUB_PERSONAL_ACCESS_TOKEN)@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/' && helm repo update'
+              script: 'helm repo add geek-cookbook-premix https://$(GITHUB_PERSONAL_ACCESS_TOKEN)@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/ && helm repo update'
 
           - task: HelmDeploy@0
             inputs:
