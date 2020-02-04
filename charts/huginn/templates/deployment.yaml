@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: {{ .Values.names.deployment }}
+  labels:
+{{ toYaml .Values.app.labels | indent 4 }}
+spec:
+  replicas: {{ .Values.app.replicas | int }}
+  template:
+    metadata:
+      labels:
+{{ toYaml .Values.app.labels | indent 8 }}        
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.app.image.image }}"
+        imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.app.service.internalPort | int }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.app.probes.liveness.httpPath }}
+            port: {{ .Values.app.service.internalPort | int }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.app.probes.readiness.httpPath }}
+            port: {{ .Values.app.service.internalPort | int }}
+        resources:
+{{ toYaml .Values.app.resources | indent 10 }}
+
