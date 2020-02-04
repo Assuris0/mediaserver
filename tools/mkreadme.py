@@ -82,11 +82,7 @@ def itr(a, path = []):
                     description = di[key][c]
                     if isList(description):
                         description = description[0]
-                    description = description.value.strip().replace("\n", "")
-                    if len(description) > 0 and description[0] == "#":
-                        description = description.replace("#","",1)
-                    else:
-                        description = ""
+                    description = description.value.strip().replace("\n", "").replace("#","",1)
             
             e = " | ".join(["`" + '.'.join(pth).replace(".[]","[]") + "`", description, "`" + str(v) + "`"])
             tableRows.append(e)
@@ -96,6 +92,7 @@ itr(values)
 table = '\n'.join(tableRows)
 
 chart["valuesTable"] = tableHeader + table
+
 
 output = pystache.render(template, {'Chart': chart})
 
