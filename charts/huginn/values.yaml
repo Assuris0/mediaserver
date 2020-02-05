@@ -1,33 +1,69 @@
-names:                          # Name everything!
-  deployment: Huginn            # The name of the deployment
-  service: Huginn               # The name of the service
+names:                              # Name everything!
+  deployment: huginn                # The name of the deployment
+  service: huginn                   # The name of the service
+  secret: huggin                    # The name of the secret
+  ingress: huggin                   # The name of the Ingress rule
 
 app:
-  replicas: 1                   # The number of pods this app should start and maintain
-  labels:                       # Labels are customizable to how you like.
-    app: Huginn                 # App is the only required label
+  replicas: 1                       # The number of pods this app should start and maintain
+  labels:                           # Labels are customizable to how you like.
+    app: Huginn                     # App is the only required label
 
-  resources: {}                 # Set the resources you want to allocate to each pod
+  resources: {}                     # Set the resources you want to allocate to each pod
 
   image:
-    image: huginn/huginn        # The image to use for this deployment, changing it is not recommended.
-    pullPolicy: IfNotPresent    # The Image Pull Policy (The same one if you were writing it yourself!)
+    image: huginn/huginn            # The image to use for this deployment, changing it is not recommended.
+    pullPolicy: IfNotPresent        # The Image Pull Policy (The same one if you were writing it yourself!)
 
   service:                      
-    internalPort: 3000          # The port the service exposes on the deployment
+    internalPort: 3000              # The port the service exposes on the deployment
 
   probes:
     liveness:
-      httpPath: /               # An HTTP path on the container that will return something if it is all live and healthy
+      httpPath: /                   # An HTTP path on the container that will return something if it is all live and healthy
     readiness:
-      httpPath: /               # An HTTP path on the container that will return something when the container is classified as "Ready"
+      httpPath: /                   # An HTTP path on the container that will return something when the container is classified as "Ready"
+  
 
 ingress:
-  enabled: true                 # Enabled Ingress for this deployment
-  type: traefik                 # Either `traefik` or `kube`, Defines the type of ingress rule to use
-  host: huginn.local            # The host you can access this service at
-  path: /                       # A path you can access it at, It is not recommended to change it off `/`
+  enabled: true                     # Enabled Ingress for this deployment
+  type: traefik                     # Either `traefik` or `kube`, Defines the type of ingress rule to use
+  host: huginn.local                # The host you can access this service at
+  path: /                           # A path you can access it at, It is not recommended to change it off `/`
+  tls: {}                           # TLS Settings for Ingress
+  annotations: {}                   # Annotations for the ingress
 
 
+smtp:
+  domain: huggin.local              # Mail domain to send from
+  username: huginn@huggin.local     # Email Account Username
+  password: hugginwithhuginn        # Email Account Password
+  server: mail.local                # Email Server Address
+  port: 465                         # Email Server Port
+  authentication: plain             # Email Server authenticaiton type
+  starttls: true                    # Email Server use STARTTLS
 
-    
+invitation_code: HUGMEHUGINN        # Huginn Invitation Code
+
+db:
+  deploy: true                      # Deploy a database with this chart, or not?
+
+  address:                          # Database Address - Can be external or point to an existing database
+  port: 5432                        # Database Port
+
+  username: "huginn"                # Database Username
+  password: "huggingwithsql"        # Database Password 
+
+twitter:    
+  oauth:
+    key: tweettweet                 # Twitter OAuth2 Key
+    secret: twoottweet              # Twitter OAuth2 Secret
+
+postgresql:
+  fullnameOverride: "huginn-sql"    # The name for the database
+  postgresqlUsername: "huginn"      # Set the username here to the same one as in `db.username`
+  postgresqlPassword: "huggingwithsql"
+                                    # Set the password here to the same one as in `db.password`
+  service:
+    port: 5432                      # Make the port the same as `db.port`
+  
