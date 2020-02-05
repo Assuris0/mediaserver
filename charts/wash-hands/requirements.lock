@@ -11,5 +11,20 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v0.13.0
-digest: sha256:49a49e1b4b3c5eef56ce061125b46d0d2ab8ce4653c8996e67e381e723be83ec
-generated: "2020-01-31T22:17:10.088584+13:00"
+- name: grafana
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.2.5
+- name: loki
+  repository: https://grafana.github.io/loki/charts
+  version: 0.25.0
+- name: promtail
+  repository: https://grafana.github.io/loki/charts
+  version: 0.18.0
+- name: prometheus-operator
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.11.1
+- name: kube-eagle
+  repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
+  version: 1.1.5
+digest: sha256:9a372df8e72b36b8ac416222f238374f40683cc3deb6a0013b0f6a21794fddbf
+generated: "2020-02-06T06:17:57.135359+13:00"
