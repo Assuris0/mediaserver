@@ -35,6 +35,7 @@ ingress:
 
 
 smtp:
+  enable: true                      # Enabled SMTP
   domain: huggin.local              # Mail domain to send from
   username: huginn@huggin.local     # Email Account Username
   password: hugginwithhuginn        # Email Account Password
@@ -51,18 +52,19 @@ db:
   address:                          # Database Address - Can be external or point to an existing database
   port: 5432                        # Database Port
 
-  username: "huginn"                # Database Username
-  password: "huggingwithsql"        # Database Password 
+  username: huginn                  # Database Username
+  password: huggingwithsql          # Database Password 
 
-twitter:    
+twitter:
+  enabled: true                     # Enable Twitter Integration    
   oauth:
     key: tweettweet                 # Twitter OAuth2 Key
     secret: twoottweet              # Twitter OAuth2 Secret
 
 postgresql:
-  fullnameOverride: "huginn-sql"    # The name for the database
-  postgresqlUsername: "huginn"      # Set the username here to the same one as in `db.username`
-  postgresqlPassword: "huggingwithsql"
+  fullnameOverride: "huginnsql"    # The name for the database
+  postgresqlUsername: huginn        # Set the username here to the same one as in `db.username`
+  postgresqlPassword: huggingwithsql
                                     # Set the password here to the same one as in `db.password`
   service:
     port: 5432                      # Make the port the same as `db.port`
