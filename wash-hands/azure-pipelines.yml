@@ -1,14 +1,14 @@
 name: $(Build.BuildId)
 
 # Trigger on push to master specifically for this chart
- trigger:		 trigger:
- - add-wash-hands		   branches:
- - master		     include:
-     - master
-   paths:
-     include:
-     - charts/wash-hands/*
-
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - charts/wash-hands/*
+    
 pool:
   vmImage: 'Ubuntu-16.04'
 
