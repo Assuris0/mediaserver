@@ -8,7 +8,7 @@ trigger:
   paths:
     include:
     - charts/wash-hands/*
-
+    
 pool:
   vmImage: 'Ubuntu-16.04'
 
