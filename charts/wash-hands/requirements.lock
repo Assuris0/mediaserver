@@ -27,4 +27,4 @@ dependencies:
   repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
   version: 1.1.5
 digest: sha256:9a372df8e72b36b8ac416222f238374f40683cc3deb6a0013b0f6a21794fddbf
-generated: "2020-02-06T06:17:57.135359+13:00"
+generated: "2020-02-06T06:36:43.356335+13:00"
