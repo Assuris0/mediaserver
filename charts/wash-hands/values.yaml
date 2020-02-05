@@ -7,6 +7,7 @@
 # #      loadBalancerIP: set-this-if-you-have-a-static-lb-ip
 
 goldilocks:
+  enabled: true
 
   installVPA: true
   uninstallVPA: false
@@ -27,6 +28,7 @@ goldilocks:
         - /
 
 certmanager:
+  enabled: true
   letsencrypt:
     email: your@email.here
     dns01:
@@ -34,3 +36,26 @@ certmanager:
         enabled: true
         email: your@email.here
         api_token: your-api-token-here
+
+nginx-ingress:
+  enabled: true
+
+# Kured handles reboots of AKS nodes one-at-a-time, PROVIDED you have enough capacity to shift all
+# workloads off one node, so that it can reboot. Disabled by default because it's not useful in all scenarios
+kured:
+  enabled: false
+
+grafana:
+  enabled: true
+  ingress:
+    enabled: true
+
+loki:
+  enabled: true
+  promtail:
+    enabled: true
+
+kube-eagle:
+  enabled: true
+  serviceMonitor:
+    create: true
