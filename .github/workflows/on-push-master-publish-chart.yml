@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - charts/*
 
 jobs:
   build:
@@ -12,7 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Helm Publish
+    - name: Publish helm charts
       uses: J12934/helm-gh-pages-action@v1.1.0
       with:
         # A personal access token needed to push your site after it has been built.
@@ -21,3 +23,9 @@ jobs:
         deploy-branch: helm-charts
         # The folder in which the helm charts are located
         charts-folder: charts
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'A new helm chart, at {{ EVENT_PAYLOAD.repository.full_name }} has been deployed/updated'
