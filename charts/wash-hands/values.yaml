@@ -54,7 +54,13 @@ loki:
   promtail:
     enabled: true
 
+# Disabled by default because of CRD issues with helm
+prometheus-operator:
+  enabled: false
+  
 kube-eagle:
   enabled: true
+  # Enable this is prometheus-operator is enabled
   serviceMonitor:
-    create: true
+    create: false
+
