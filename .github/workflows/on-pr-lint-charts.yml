@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run chart-testing (lint)
-        id: lint
+        id: lint chart
         uses: helm/chart-testing-action@v1.0.0-alpha.3
         with:
           # sadly, can't use this yet until chart-testing-action updates to v2
@@ -29,3 +29,4 @@ jobs:
         uses: helm/chart-testing-action@v1.0.0-alpha.3
         with:
           command: install
+          config: .ci/ct-config.yaml          
