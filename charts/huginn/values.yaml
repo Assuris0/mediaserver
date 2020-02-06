@@ -55,6 +55,8 @@ db:
   username: huginn                  # Database Username
   password: huggingwithsql          # Database Password 
 
+  seed: false                       # Seed the database (fill with dummy data)
+
 twitter:
   enabled: true                     # Enable Twitter Integration    
   oauth:
