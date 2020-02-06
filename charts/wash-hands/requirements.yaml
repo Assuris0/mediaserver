@@ -14,10 +14,10 @@ dependencies:
     repository: https://charts.fairwinds.com/stable
     condition: goldilocks.enabled
 
-  - name: cert-manager
+  - name: certmanager
     version: v0.13.0
     repository: https://charts.jetstack.io
-    condition: cert-manager.enabled
+    condition: certmanager.enabled
 
   - name: grafana
     version: 1.2.5

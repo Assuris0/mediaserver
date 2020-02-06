@@ -26,7 +26,7 @@ goldilocks:
         - /
 
 # Disabled by default, until you insert your own credentials below
-cert-manager:
+certmanager:
   enabled: false
   letsencrypt:
     email: your@email.here

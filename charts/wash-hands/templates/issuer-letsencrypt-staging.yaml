@@ -1,5 +1,5 @@
-# Per https://cert-manager.io/docs/configuration/acme/
-apiVersion: cert-manager.io/v1alpha2
+# Per https://certmanager.io/docs/configuration/acme/
+apiVersion: certmanager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
