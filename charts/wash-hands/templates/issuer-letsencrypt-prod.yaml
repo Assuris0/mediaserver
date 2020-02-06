@@ -1,3 +1,4 @@
+{{ if .Values.certmanager.enabled | default false }}
 # Per https://certmanager.io/docs/configuration/acme/
 apiVersion: certmanager.io/v1alpha2
 kind: ClusterIssuer
@@ -20,4 +21,5 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+{{ end }}
 {{ end }}
