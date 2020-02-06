@@ -73,6 +73,7 @@ spec:
               secretKeyRef:
                 name: {{ .Values.names.secret }}
                 key: invitiation_code
+
           - name: POSTGRES_PORT_5432_TCP_ADDR
             valueFrom:
               secretKeyRef:
@@ -93,11 +94,6 @@ spec:
               secretKeyRef:
                 name: {{ .Values.names.secret }}
                 key: db_pass
-          - name: DATABASE_ADAPTER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.names.secret }}
-                key: db_adapter
 
           {{ if .Values.twitter.enable }}
           - name: TWITTER_OAUTH_KEY
@@ -111,6 +107,6 @@ spec:
                 name: {{ .Values.names.secret }}
                 key: twitter_secret
           {{ end }}
-
-
-
+          {{ if not .Values.db.seed }}
+          - name: DO_NOT_SEED
+          {{ end }}
