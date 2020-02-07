@@ -11,7 +11,8 @@ names:
   secret: huggin            
 
   # The name of the Ingress rule
-  ingress: huggin                   
+  ingress: huggin             
+      
 
 app:
   # The number of pods this app should start and maintain
@@ -37,7 +38,10 @@ app:
   service:          
 
     # The port the service exposes on the deployment  
-    internalPort: 3000              
+    internalPort: 3000     
+
+    # The name of the port
+    name: http-huggin         
 
   probes:
     liveness:
@@ -57,7 +61,7 @@ ingress:
   enabled: true                    
 
   # Either `traefik` or `kube`, Defines the type of ingress rule to use
-  type: traefik                     
+  type: kube                     
   
   # The host you can access this service at
   host: huginn.local                
@@ -147,7 +151,7 @@ postgresql:
 
 
   service:
-  
+
     # Make the port the same as `db.port`
     port: 5432                      
   
