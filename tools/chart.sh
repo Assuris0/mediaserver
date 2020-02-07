@@ -23,7 +23,7 @@ cmd_build(){
 
 cmd_create(){
     cd charts
-    helm create $2
+    helm create $1
     cd ..
 }
 
@@ -46,7 +46,7 @@ case "$1" in
         ;;
 
     "create")
-        cmd_create
+        cmd_create $2
         ;;
 
     "lint")
