@@ -1,6 +1,9 @@
-name: CI
+name: Publish helm chart
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -15,6 +18,6 @@ jobs:
         # A personal access token needed to push your site after it has been built.
         access-token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
         # The branch expected by GitHub to have the static files needed for your site.
-        deploy-branch: master
+        deploy-branch: helm-charts
         # The folder in which the helm charts are located
         charts-folder: charts
