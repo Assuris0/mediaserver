@@ -22,9 +22,8 @@ cmd_build(){
 }
 
 cmd_create(){
-    cd charts
-    helm create $1 -p `pwd`/../tools/helm-boilerplate/
-    cd ..
+    cp -rf tools/helm-boilerplate/ $CHART/
+    find $CHART -type f -exec sed -i "s/<CHARTNAME>/$CHARTNAME/" {} \;
 }
 
 cmd_lint(){
@@ -38,7 +37,9 @@ cmd_update(){
 pushd . > /dev/null
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 
-CHART=charts/$2
+CHARTNAME=$2
+CHART=charts/$CHARTNAME
+
 
 case "$1" in 
     "build")
