@@ -1,8 +1,3 @@
-clr(){
-    echo -e "\033[$1m"
-}
-
-
 pushd . > /dev/null
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 
@@ -29,10 +24,7 @@ if [ "$1" = "create" ]; then
 fi
 
 if [ "$1" = "lint" ]; then
-    echo -e "`clr '0;94'`helm lint`clr '0'`"
-    helm lint $CHART
-    echo -e "`clr '0;94'`ct lint`clr '0'`"
-    ct lint --charts $CHART
+    ct lint --charts $CHART --debug
 fi
 
 #Now I would try make something fancy, but I want to get onto writing some jucy recipies
