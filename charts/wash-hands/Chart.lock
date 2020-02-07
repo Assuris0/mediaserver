@@ -1,12 +1,30 @@
 dependencies:
 - name: kured
   repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 1.4.x
+  version: 1.4.2
 - name: nginx-ingress
   repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 1.25.x
+  version: 1.25.2
 - name: goldilocks
   repository: https://charts.fairwinds.com/stable
   version: 2.1.0
-digest: sha256:4b956eaaf5fa618655aab43248c54b9f80cc164e81a6edeb544f7bcbebbebfe9
-generated: "2020-01-24T23:01:57.06378+13:00"
+- name: certmanager
+  repository: https://charts.jetstack.io
+  version: v0.13.0
+- name: grafana
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.2.5
+- name: loki
+  repository: https://grafana.github.io/loki/charts
+  version: 0.25.0
+- name: promtail
+  repository: https://grafana.github.io/loki/charts
+  version: 0.18.0
+- name: prometheus-operator
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.11.1
+- name: kube-eagle
+  repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
+  version: 1.1.5
+digest: sha256:5017a762faae184557a2c6794d64742f452767cbb2203e8d93bae336dfc7e746
+generated: "2020-02-06T20:55:20.8960646Z"

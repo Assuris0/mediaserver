@@ -1,5 +1,6 @@
-# Per https://cert-manager.io/docs/configuration/acme/
-apiVersion: cert-manager.io/v1alpha2
+{{ if .Values.certmanager.enabled | default false }}
+# Per https://certmanager.io/docs/configuration/acme/
+apiVersion: certmanager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
@@ -20,4 +21,5 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+{{ end }}
 {{ end }}

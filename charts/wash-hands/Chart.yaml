@@ -1,3 +1,13 @@
 apiVersion: v1
-version: 0.0.1
+version: 0.0.2
 name: wash-hands
+home: https://geek-cookbook.funkypenguin.co.nz
+
+description: Some base dependencies in a sane cluster
+appVersion: 0.0.1
+
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+    url: https://www.funkypenguin.co.nz
+
