@@ -1,8 +1,20 @@
-# Huggin
+# What is this?
 
-A Helm chart for Kubernetes
+This is the Funky Penguin Geek Cookbook's Huggin chart
 
-## Parameters
+# How do I use it?
+
+Deploy the chart as follows, customizing `myvalues.yaml` file, overriding any of the parameters defined below.
+
+```
+cd charts/huginn
+cp values.yaml myvalues.yaml # (customize myvalues.yaml as necessary)
+kubectl create namespace huginn
+helm upgrade --install -f myvalues.yaml -n huginn huggin .
+```
+
+
+# Parameters
 
 **Parameter** | **Description** | **Default**
 --- | --- | ---
