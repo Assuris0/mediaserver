@@ -23,7 +23,7 @@ cmd_build(){
 
 cmd_create(){
     cd charts
-    helm create $1
+    helm create $1 -p `pwd`/../tools/helm-boilerplate/
     cd ..
 }
 
