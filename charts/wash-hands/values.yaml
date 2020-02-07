@@ -6,7 +6,6 @@
 
 goldilocks:
   enabled: true
-
   installVPA: true
   uninstallVPA: false
   reinstallVPA: false
@@ -38,6 +37,11 @@ certmanager:
 
 nginx-ingress:
   enabled: true
+  controller:
+    service:
+      # This is set to ClusterIP by default, since the target cluster may not support loadbalancers
+      # (and broken loadbalancers breaks our CI)
+      type: ClusterIP
 
 # Kured handles reboots of AKS nodes one-at-a-time, PROVIDED you have enough capacity to shift all
 # workloads off one node, so that it can reboot. Disabled by default because it's not useful in all scenarios
@@ -57,7 +61,7 @@ loki:
 # Disabled by default because of CRD issues with helm
 prometheus-operator:
   enabled: false
-  
+
 kube-eagle:
   enabled: true
   # Enable this is prometheus-operator is enabled
