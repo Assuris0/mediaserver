@@ -11,10 +11,7 @@ names:
   secret: huggin
 
   # The name of the Ingress rule
-      
-  ingress: huggin             
   ingress: huggin
-
 
 app:
   # The number of pods this app should start and maintain
@@ -56,7 +53,6 @@ app:
       # An HTTP path on the container that will return something when the container is classified as "Ready"
       httpPath: /
 
-
 ingress:
 
   # Enabled Ingress for this deployment
@@ -76,7 +72,6 @@ ingress:
 
   # Annotations for the ingress
   annotations: {}
-
 
 smtp:
 
@@ -150,7 +145,6 @@ postgresql:
 
   # Set the password here to the same one as in `db.password`
   postgresqlPassword: huggingwithsql
-
 
   service:
 

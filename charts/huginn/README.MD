@@ -6,40 +6,44 @@ A Helm chart for Kubernetes
 
 **Parameter** | **Description** | **Default**
 --- | --- | ---
-`names.deployment` |  The name of the deployment | `huginn`
-`names.service` |  The name of the service | `huginn`
-`names.secret` |  The name of the secret | `huggin`
-`names.ingress` |  The name of the Ingress rule | `huggin`
-`app.replicas` |  The number of pods this app should start and maintain | `1`
-`app.labels.app` |  App is the only required label | `Huginn`
-`app.resources` |  Set the resources you want to allocate to each pod | `{}`
-`app.image.image` |  The image to use for this deployment, changing it is not recommended. | `huginn/huginn`
-`app.image.pullPolicy` |  The Image Pull Policy (The same one if you were writing it yourself!) | `IfNotPresent`
-`app.service.internalPort` |  The port the service exposes on the deployment | `3000`
-`app.probes.liveness.httpPath` |  An HTTP path on the container that will return something if it is all live and healthy | `/`
-`app.probes.readiness.httpPath` |  An HTTP path on the container that will return something when the container is classified as &quot;Ready&quot; | `/`
-`ingress.enabled` |  Enabled Ingress for this deployment | `True`
-`ingress.type` |  Either `traefik` or `kube`, Defines the type of ingress rule to use | `traefik`
-`ingress.host` |  The host you can access this service at | `huginn.local`
-`ingress.path` |  A path you can access it at, It is not recommended to change it off `/` | `/`
-`ingress.tls` |  TLS Settings for Ingress | `{}`
+`names.deployment` |  The name of the service | `huginn`
+`names.service` |  The name of the secret | `huginn`
+`names.secret` |  The name of the Ingress rule | `huggin`
+`names.ingress` |  | `huggin`
+`app.replicas` |  Labels are customizable to how you like. | `1`
+`app.labels.app` |  Set the resources you want to allocate to each pod | `Huginn`
+`app.resources` |  | `{}`
+`app.image.image` |  The Image Pull Policy (The same one if you were writing it yourself!) | `huginn/huginn`
+`app.image.pullPolicy` |  | `IfNotPresent`
+`app.service.internalPort` |  The name of the port | `3000`
+`app.service.name` |  | `http-huggin`
+`app.probes.liveness.httpPath` |  | `/`
+`app.probes.readiness.httpPath` |  | `/`
+`ingress.enabled` |  Either `traefik` or `kube`, Defines the type of ingress rule to use | `True`
+`ingress.type` |  The host you can access this service at | `kube`
+`ingress.host` |  A path you can access it at, It is not recommended to change it off `/` | `huginn.local`
+`ingress.path` |  TLS Settings for Ingress | `/`
+`ingress.tls` |  | `{}`
 `ingress.annotations` |  Annotations for the ingress | `{}`
-`smtp.domain` |  Mail domain to send from | `huggin.local`
-`smtp.username` |  Email Account Username | `huginn@huggin.local`
-`smtp.password` |  Email Account Password | `hugginwithhuginn`
-`smtp.server` |  Email Server Address | `mail.local`
-`smtp.port` |  Email Server Port | `465`
-`smtp.authentication` |  Email Server authenticaiton type | `plain`
-`smtp.starttls` |  Email Server use STARTTLS | `True`
-`invitation_code` |  Huginn Invitation Code | `HUGMEHUGINN`
-`db.deploy` |  Deploy a database with this chart, or not? | `True`
-`db.address` |  Database Address - Can be external or point to an existing database | `nil`
+`smtp.enable` |  Mail domain to send from | `True`
+`smtp.domain` |  Email Account Username | `huggin.local`
+`smtp.username` |  Email Account Password | `huginn@huggin.local`
+`smtp.password` |  Email Server Address | `hugginwithhuginn`
+`smtp.server` |  Email Server Port | `mail.local`
+`smtp.port` |  Email Server authenticaiton type | `465`
+`smtp.authentication` |  Email Server use STARTTLS | `plain`
+`smtp.starttls` |  Huginn Invitation Code | `True`
+`invitation_code` |  | `HUGMEHUGINN`
+`db.deploy` |  Database Address - Can be external or point to an existing database | `True`
+`db.address` |  | `nil`
 `db.port` |  Database Port | `5432`
-`db.username` |  Database Username | `huginn`
-`db.password` |  Database Password | `huggingwithsql`
-`twitter.oauth.key` |  Twitter OAuth2 Key | `tweettweet`
-`twitter.oauth.secret` |  Twitter OAuth2 Secret | `twoottweet`
-`postgresql.fullnameOverride` |  The name for the database | `huginn-sql`
-`postgresql.postgresqlUsername` |  Set the username here to the same one as in `db.username` | `huginn`
-`postgresql.postgresqlPassword` |  Set the password here to the same one as in `db.password` | `huggingwithsql`
-`postgresql.service.port` |  Make the port the same as `db.port` | `5432`
+`db.username` |  Database Password | `huginn`
+`db.password` |  Seed the database (fill with dummy data) | `huggingwithsql`
+`db.seed` |  | `nil`
+`twitter.enabled` |  | `True`
+`twitter.oauth.key` |  Twitter OAuth2 Secret | `tweettweet`
+`twitter.oauth.secret` |  | `twoottweet`
+`postgresql.fullnameOverride` |  Set the username here to the same one as in `db.username` | `huginnsql`
+`postgresql.postgresqlUsername` |  Set the password here to the same one as in `db.password` | `huginn`
+`postgresql.postgresqlPassword` |  | `huggingwithsql`
+`postgresql.service.port` |  | `5432`
