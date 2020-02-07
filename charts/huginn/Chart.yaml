@@ -21,6 +21,8 @@ version: 0.1.0
 # incremented each time you make changes to the application.
 appVersion: 1.16.0
 
+home: https://geek-cookbook.funkypenguin.co.nz/
+
 dependencies:
 - name: postgresql
   version: "8.3.0"
