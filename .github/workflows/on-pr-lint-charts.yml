@@ -11,12 +11,13 @@ jobs:
 
       - name: Run chart-testing (lint)
         id: lint
-        uses: helm/chart-testing-action@v1.0.0-alpha.3
+        uses: HexF/chart-testing-action@v3.0.1
         with:
           # sadly, can't use this yet until chart-testing-action updates to v2
-          # image: quay.io/helmpack/chart-testing
+          image: quay.io/helmpack/chart-testing:v3.0.0-beta.1
           config: .ci/ct-config.yaml
           command: lint
+          
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0-alpha.3
@@ -26,7 +27,7 @@ jobs:
         if: steps.lint.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.0.0-alpha.3
+        uses: HexF/chart-testing-action@v3.0.1
         with:
           command: install
           config: .ci/ct-config.yaml          
