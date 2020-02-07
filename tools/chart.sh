@@ -23,7 +23,7 @@ cmd_build(){
 
 cmd_create(){
     cp -rf tools/helm-boilerplate/ $CHART/
-    find $CHART -type f -exec sed -i "s/<CHARTNAME>/$CHARTNAME/" {} \;
+    find $CHART -type f -exec sed -i "s/<CHARTNAME>/$CHARTNAME/g" {} \;
 }
 
 cmd_lint(){

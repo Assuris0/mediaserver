@@ -1,0 +1,27 @@
+This geeky helm chart proudly brought to you by..
+
+  FUNKY PENGUIN'S
+       GEEK COOKBOOK
+
+           |~|_
+           o-o
+           /V\
+          // \\
+         /(   )\
+          ^-~-^
+
+> http://geek-cookbook.funkypenguin.co.nz <
+
+Congratulations, you've deployed this chart. Now what?
+{{ if .Values.ingress.enabled }}
+Find your new service at:
+http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.host }}{{ .Values.ingress.path }}
+{{ end }}
+
+Your service has an internal address of
+{{ printf "%s.%s.svc.cluster.local" .Values.names.service .Release.Namespace }}
+(You put this in other charts to talk to it!)
+
+Got questions? Ideas? Hop into our Discord server at
+http://chat.funkypenguin.co.nz - hot, sweaty geeks are
+waiting to help you out!

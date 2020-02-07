@@ -5,6 +5,10 @@ metadata:
   name: {{ .Values.names.ingress }}
   labels:
 {{ include "<CHARTNAME>.labels" . | indent 4 }}
+  annotations:
+    {{- range $key, $value := .Values.ingress.annotations }}
+      {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
   routes:
   - match: Host(`{{ .Values.ingress.host }}`) && PathPrefix(`{{ .Values.ingress.path }}`)
