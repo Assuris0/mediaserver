@@ -11,6 +11,8 @@ names:
   secret: huggin
 
   # The name of the Ingress rule
+      
+  ingress: huggin             
   ingress: huggin
 
 
