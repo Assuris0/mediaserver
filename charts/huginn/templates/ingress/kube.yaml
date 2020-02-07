@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.names.service }}
   labels:
-{{ toYaml .Values.app.labels | indent 4 }}
+{{ include "huggin.labels" . | indent 4 }}
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
       {{ $key }}: {{ $value | quote }}

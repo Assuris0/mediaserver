@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: {{ .Values.names.service }}
   labels:
-{{ toYaml .Values.app.labels | indent 4 }}
+{{ include "huggin.labels" . | indent 4 }}
 spec:
   ports:
   - port: {{ .Values.app.service.internalPort }}
     protocol: TCP
+    name: {{ .Values.app.service.name }}
   selector:
     app: {{ .Values.app.labels.app }}
