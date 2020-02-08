@@ -25,7 +25,7 @@ app:
     media:
 
       # Size of the claim
-      size: 500Gi
+      size: 5Gi
 
       # Mount Path
       mountPath: /media
