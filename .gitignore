@@ -29,4 +29,8 @@ autopirate-fp.yml
 # Don't check in any file named "myvalues.yml" or "myvalues.yaml"
 myvalues.yml
 myvalues.yaml
-testvals/lidarr.yaml
+
+# Apparently .lock files contain PATs
+*.lock
+testvals/
+
