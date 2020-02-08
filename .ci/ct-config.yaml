@@ -8,7 +8,6 @@ chart-repos:
   - jetstack=https://charts.jetstack.io
   - loki=https://grafana.github.io/loki/charts
   - kube-eagle=https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
-  - premix=https://raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/?token=${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
 
 lint-conf: .ci/lint-config.yaml
 excluded-charts:
