@@ -14,6 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: azure/setup-helm@v1
+      id: installhelm3
+      with:
+        version: 'v3.0.3'
     - name: Publish helm charts
       uses: J12934/helm-gh-pages-action@v1.1.0
       with:
