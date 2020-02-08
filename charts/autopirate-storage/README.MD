@@ -11,4 +11,3 @@ A Helm chart for Kubernetes, crafted by the finest chefs
 | `app.labels.app`             | Manage the storage           | `autopirate-storage`   |
 | `app.storage.media.size`     | Storage for downloaded items | `500Gi`                |
 | `app.storage.downloads.size` |                              | `200Gi`                |
-
