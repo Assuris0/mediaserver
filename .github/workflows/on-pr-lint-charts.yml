@@ -11,11 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
-      - name: Checkout helm charts
-        uses: actions/checkout@v2
-        with:
-          ref: helm-charts
           
       - name: Run chart-testing (lint)
         id: lint
