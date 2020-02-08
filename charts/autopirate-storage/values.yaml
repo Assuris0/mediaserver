@@ -25,7 +25,7 @@ app:
     media:
 
       # Do we actually create our media claim? Only do this once
-      create: false
+      create: true
 
       # Size of the claim
       size: 5Gi
