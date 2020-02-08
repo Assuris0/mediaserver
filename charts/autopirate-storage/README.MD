@@ -2,7 +2,6 @@
 
 A Helm chart for Kubernetes, crafted by the finest chefs
 
-
 ## Parameters
 
 | **Parameter**                | **Description**              | **Default**            |
