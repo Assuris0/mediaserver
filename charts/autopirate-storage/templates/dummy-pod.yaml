@@ -9,9 +9,9 @@ spec:
   - name: whiletrue
     image: busybox:1.28
     command: ['sh', '-c', 'while true; do :; done']
-    volumeMount:
-         - name: {{ .Values.names.pvc.media }}
-           mountPath: {{ .Values.app.storage.media.mountPath }}
+    volumeMounts:
+      - name: {{ .Values.names.pvc.media }}
+        mountPath: {{ .Values.app.storage.media.mountPath }}
   volumes: 
   - name: {{ .Values.names.pvc.media }}
     persistentVolumeClaim:

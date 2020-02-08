@@ -7,6 +7,10 @@ names:
     # Name of the media claim
     media: autopirate-media
 
+  # A simple dummy pod to consume the media pod
+  pod: autopirate-media-consumer
+
+
 app:
 
   # Labels are customizable to how you like.
