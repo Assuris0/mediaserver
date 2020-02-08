@@ -13,7 +13,6 @@ kubectl create namespace huginn
 helm upgrade --install -f myvalues.yaml -n huginn huggin .
 ```
 
-
 # Parameters
 
 **Parameter** | **Description** | **Default**
