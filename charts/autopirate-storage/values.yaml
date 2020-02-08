@@ -24,6 +24,9 @@ app:
     # Storage for Media Items (movies, music, memes)
     media:
 
+      # Do we actually create our media claim? Only do this once
+      create: true
+
       # Size of the claim
       size: 5Gi
 
