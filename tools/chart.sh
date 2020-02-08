@@ -6,6 +6,7 @@ Usage: $(basename $0) [command] [chart]
         create  -   Create a new chart with the name of [chart]
         lint    -   Lint [chart] with chart-testing
         update  -   Update the dependencies on [chart]
+        addcore -   Add the local version of FunkyCore to [chart]
         prepush -   Updates readme, updates dependencies and lints chart (The pre-push package!)
 
     Dependencies:
@@ -22,9 +23,8 @@ cmd_build(){
 }
 
 cmd_create(){
-    cd charts
-    helm create $2
-    cd ..
+    cp -rf tools/helm-boilerplate/ $CHART/
+    find $CHART -type f -exec sed -i "s/<CHARTNAME>/$CHARTNAME/g" {} \;
 }
 
 cmd_lint(){
@@ -35,10 +35,17 @@ cmd_update(){
     helm dep update $CHART
 }
 
+cmd_addcore(){
+    helm package charts/funkycore
+    mv funkycore*.tgz $CHART/charts 
+}
+
 pushd . > /dev/null
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 
-CHART=charts/$2
+CHARTNAME=$2
+CHART=charts/$CHARTNAME
+
 
 case "$1" in 
     "build")
@@ -46,7 +53,7 @@ case "$1" in
         ;;
 
     "create")
-        cmd_create
+        cmd_create $2
         ;;
 
     "lint")
@@ -56,8 +63,12 @@ case "$1" in
     "update")
         cmd_update
         ;;
+    "addcore")
+        cmd_addcore
+        ;;
     "prepush")
         cmd_build
+        cmd_addcore
         cmd_update
         cmd_lint
         ;;
