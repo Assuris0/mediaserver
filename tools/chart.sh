@@ -7,6 +7,7 @@ Usage: $(basename $0) [command] [chart]
         lint    -   Lint [chart] with chart-testing
         update  -   Update the dependencies on [chart]
         addcore -   Add the local version of FunkyCore to [chart]
+        addpkg  -   Adds the 3rd parameter to [chart]
         prepush -   Updates readme, updates dependencies and lints chart (The pre-push package!)
 
     Dependencies:
@@ -35,9 +36,9 @@ cmd_update(){
     helm dep update $CHART
 }
 
-cmd_addcore(){
-    helm package charts/funkycore
-    mv funkycore*.tgz $CHART/charts 
+cmd_addpkg(){
+    helm package charts/$1
+    mv $1*.tgz $CHART/charts 
 }
 
 pushd . > /dev/null
@@ -64,11 +65,13 @@ case "$1" in
         cmd_update
         ;;
     "addcore")
-        cmd_addcore
+        cmd_addpkg funkycore
+        ;;
+    "addpkg")
+        cmd_addpkg $3
         ;;
     "prepush")
         cmd_build
-        cmd_addcore
         cmd_update
         cmd_lint
         ;;
