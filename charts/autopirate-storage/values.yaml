@@ -7,6 +7,9 @@ names:
     # Name of the media claim
     media: autopirate-media
 
+  # A simple dummy pod to consume the media pod
+  pod: autopirate-media-consumer
+
 app:
 
   # Labels are customizable to how you like.
@@ -22,7 +25,7 @@ app:
     media:
 
       # Size of the claim
-      size: 500Gi
+      size: 5Gi
 
       # Mount Path
       mountPath: /media
