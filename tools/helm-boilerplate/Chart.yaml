@@ -11,3 +11,7 @@ maintainers:
       email: git@hexf.me
       url: https://hexf.me
 
+dependencies:
+  - name: funkycore
+    version: "^1.0.0"
+    repository: "@premix"
