@@ -1,0 +1,9 @@
+dependencies:
+- name: funkycore
+  repository: https://126ec28a2ef43d3a3d7b57f9e5a587e32e49563c@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
+  version: 1.0.0
+- name: autopirate-storage
+  repository: https://126ec28a2ef43d3a3d7b57f9e5a587e32e49563c@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
+  version: 0.1.1
+digest: sha256:683c56294d05e5b065ec9459d26f1cfa4de1a3d44b9823d984bfb5ebf074f330
+generated: "2020-02-09T11:13:15.2779924+13:00"

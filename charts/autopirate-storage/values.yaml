@@ -26,3 +26,6 @@ app:
 
       # Mount Path
       mountPath: /media
+
+      # Do we create the PVC? 
+      create: true
