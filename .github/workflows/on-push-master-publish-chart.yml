@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Publish helm charts
-      uses: J12934/helm-gh-pages-action@v1.1.0
+      uses: funkypenguin/helm-gh-pages-action@v1.1.1
       with:
         # A personal access token needed to push your site after it has been built.
         access-token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
