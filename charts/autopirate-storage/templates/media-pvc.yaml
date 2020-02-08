@@ -10,6 +10,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.app.storage.media.size }}
-  selector:
-    matchLabels:
-      app: {{ .Values.app.labels.app }}
+  volumeName: {{ .Values.names.pvc.media }}
