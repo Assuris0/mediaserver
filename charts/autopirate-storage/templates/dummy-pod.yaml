@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ .Values.pod }}
+  name: {{ .Values.names.pod }}
   labels:
 {{ include "autopirate-storage.labels" . | indent 8 }}
 spec:
