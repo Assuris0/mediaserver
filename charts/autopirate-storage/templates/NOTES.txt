@@ -1,5 +1,0 @@
-{{ include "funkycore.notes.header" . }}
-
-{{ include "funkycore.notes.chartSuggestion" . }}
-
-{{ include "funkycore.notes.footer" . }}
