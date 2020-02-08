@@ -22,7 +22,7 @@ jobs:
       uses: stefanprodan/kube-tools@v1.3.0
       with:
         command: |
-          helm3 repo add premix https://${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
+          helm repo add premix https://${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
     - name: Publish helm charts
       uses: funkypenguin/helm-gh-pages-action@v1.1.1
       with:
