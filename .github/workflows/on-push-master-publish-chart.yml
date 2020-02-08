@@ -22,6 +22,7 @@ jobs:
       uses: stefanprodan/kube-tools@v1.3.0
       with:
         command: |
+          ls -la ${{ steps.installhelm3.outputs.helm-path }}
           ${{ steps.installhelm3.outputs.helm-path }} init 
           ${{ steps.installhelm3.outputs.helm-path }} repo add premix https://${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
     - name: Publish helm charts
