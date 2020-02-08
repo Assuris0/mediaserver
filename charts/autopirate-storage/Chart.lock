@@ -1,0 +1,6 @@
+dependencies:
+- name: funkycore
+  repository: https://68520dd170befdcb5470df33989d2ba34c94127d@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
+  version: 1.0.0
+digest: sha256:a5e91f8ab9f428730924854bf81734267f8f4aba8d06330ae5578cad76cd6d50
+generated: "2020-02-08T16:52:32.1776758+13:00"
