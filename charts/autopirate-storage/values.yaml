@@ -1,0 +1,34 @@
+# Name everything!
+names:
+
+  # The names of our PVCs
+  pvc:
+
+    # Name of the media claim
+    media: autopirate-media
+
+    # Name of the downloads claim
+    downloads: autopirate-downloads
+
+app:
+
+  # Labels are customizable to how you like.
+  labels:
+
+    # App is the only required label
+    app: autopirate-storage
+
+  # Manage the storage
+  storage:
+
+    # Storage for Media Items (movies, music, memes)
+    media:
+
+      # Size of the claim
+      size: 500Gi
+
+    # Storage for downloaded items
+    downloads:
+
+      # Size of the claim
+      size: 200Gi
