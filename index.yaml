@@ -3,13 +3,13 @@ entries:
   autopirate-storage:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-02-09T00:49:36.749963918Z"
+    created: "2020-02-09T01:21:56.183283444Z"
     dependencies:
     - name: funkycore
       repository: '@premix'
       version: ^1.0.0
     description: A Helm chart for Kubernetes, crafted by the finest chefs
-    digest: 25b32c423fcdfa7ee8b4e5ef2fce5c0d8e39bc77c8d454b911f7f1a60f3cc2d3
+    digest: 446542e348891070f24900c652ab5a10d5eb9e734706c51bb772ada5b99ec036
     home: https://geek-cookbook.funkypenguin.co.nz/
     maintainers:
     - email: git@hexf.me
@@ -22,7 +22,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-02-09T00:49:36.749173317Z"
+    created: "2020-02-09T01:21:56.182375039Z"
     dependencies:
     - name: funkycore
       repository: '@premix'
@@ -42,9 +42,9 @@ entries:
   funkycore:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-02-09T00:49:36.750232119Z"
+    created: "2020-02-09T01:21:56.183542046Z"
     description: A collection of helpers for all Cookbook Charts
-    digest: 53cab6d51a7c4aa208cf2cb1ef07f96218655c6fedfe9e8623a8e0b193d552e0
+    digest: 744aed713e87f67481ca0903c84b49e77c3914871574e21f747ff639a653fa50
     home: https://geek-cookbook.funkypenguin.co.nz/
     maintainers:
     - email: git@hexf.me
@@ -58,14 +58,14 @@ entries:
   huginn:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-02-09T00:49:36.754095926Z"
+    created: "2020-02-09T01:21:56.189453485Z"
     dependencies:
     - condition: db.deploy
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 8.3.0
     description: A Helm chart for Kubernetes
-    digest: a1c4ad2c6e6d5dd77961d34cea98d7bcaa1381732923135aba0336cf99fd4acc
+    digest: 0228617d29aabdaa27d9d8a0aea54bb08efde89c347807a437c5fac795297169
     home: https://geek-cookbook.funkypenguin.co.nz/
     maintainers:
     - email: git@hexf.me
@@ -79,7 +79,7 @@ entries:
   wash-hands:
   - apiVersion: v1
     appVersion: 0.0.1
-    created: "2020-02-09T00:49:36.792137497Z"
+    created: "2020-02-09T01:21:56.227171231Z"
     dependencies:
     - condition: kured.enabled
       name: kured
@@ -119,7 +119,7 @@ entries:
       repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
       version: 1.1.5
     description: Some base dependencies in a sane cluster
-    digest: f6f5c962e2848dff7fca72f430c2ea80914aa0ffbdd279f7bb986e379ab3abf2
+    digest: 6dacf68b8801ef7bfa3087436687939f5ae8179674d0b2e24ea76a3c0089f174
     home: https://geek-cookbook.funkypenguin.co.nz
     maintainers:
     - email: davidy@funkypenguin.co.nz
@@ -130,7 +130,7 @@ entries:
     - wash-hands-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
-    created: "2020-02-09T00:49:36.765201347Z"
+    created: "2020-02-09T01:21:56.198681145Z"
     dependencies:
     - name: kured
       repository: https://kubernetes-charts.storage.googleapis.com/
@@ -149,4 +149,4 @@ entries:
     urls:
     - wash-hands-0.0.1.tgz
     version: 0.0.1
-generated: "2020-02-09T00:49:36.748405016Z"
+generated: "2020-02-09T01:21:56.181330532Z"
