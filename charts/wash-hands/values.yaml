@@ -25,6 +25,11 @@ goldilocks:
         - /
 
 # Disabled by default, until you insert your own credentials below
+# Additionally, you _must_ install the CRDs by hand, before enabling below. 
+# To install the CRDs, run:
+#     kubectl apply --validate=false \
+#       -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.13/deploy/manifests/00-crds.yaml
+
 certmanager:
   enabled: false
   letsencrypt:

@@ -36,4 +36,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: "Greetings geeks 🤓! A shiny new/updated helm ⎈ chart is out of the oven! Here's what's changed: \"${{github.event.commits[0].message}}\"""
+        args: "Greetings geeks 🤓! A shiny new/updated helm ⎈ chart is out of the oven! Here's what's changed: \"${{github.event.commits[0].message}}\""
