@@ -2,7 +2,7 @@ apiVersion: v2
 name: autopirate-storage
 description: A Helm chart for Kubernetes, crafted by the finest chefs
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: 1.16.0
 title: autopirate-storage
 home: https://geek-cookbook.funkypenguin.co.nz/
