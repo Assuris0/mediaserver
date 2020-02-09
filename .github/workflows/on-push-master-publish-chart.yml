@@ -37,8 +37,9 @@ jobs:
       uses: Ilshidur/action-discord@master
       with:
         args: |
-          Greetings geeks 🤓!
-          A shiny new/updated helm ⎈ chart has been cooked by @${{github.event.commits[0].owner.name}}
+          Greetings, geeks!  🤓
+
+          A shiny new/updated helm ⎈ chart has been cooked by @${{github.event.commits[0].author.name}}
           
           Here's what's changed:
           > ${{github.event.commits[0].message}}
