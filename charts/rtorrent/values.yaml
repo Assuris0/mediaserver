@@ -35,7 +35,7 @@ app:
   image:
 
     # The image to use for this deployment, changing it is not recommended.
-    image: linuxserver/rtorrent:latest
+    image: linuxserver/rutorrent:latest
 
     # The Image Pull Policy (The same one if you were writing it yourself!)
     pullPolicy: IfNotPresent
