@@ -4,7 +4,7 @@ name: $(Build.BuildId)
 trigger:
   branches:
     include:
-    - master
+    - dev
   paths:
     include:
     - charts/wash-hands/*
