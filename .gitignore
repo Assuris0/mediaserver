@@ -30,3 +30,5 @@ autopirate-fp.yml
 myvalues.yml
 myvalues.yaml
 testvals/
+
+*.lock
