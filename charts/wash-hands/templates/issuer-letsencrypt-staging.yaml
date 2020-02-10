@@ -1,6 +1,6 @@
 {{ if .Values.certmanager.enabled | default false }}
 # Per https://certmanager.io/docs/configuration/acme/
-apiVersion: certmanager.io/v1alpha2
+apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
