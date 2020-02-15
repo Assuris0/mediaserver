@@ -28,5 +28,12 @@ spec:
           httpGet:
             path: {{ .Values.app.probes.readiness.httpPath }}
             port: {{ .Values.app.service.internalPort | int }}
+        volumeMounts:
+          - name: {{ .Values.names.pvc.config }}
+            mountPath: {{ .Values.app.storage.config.mountPath }}
         resources:
 {{ toYaml .Values.app.resources | indent 10 }}
+      volumes: 
+        - name: {{ .Values.names.pvc.config }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.names.pvc.config }}
