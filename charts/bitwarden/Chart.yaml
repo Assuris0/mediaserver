@@ -1,0 +1,18 @@
+apiVersion: v2
+name: bitwarden
+description: Bitwarden is a self-hosted Open-Source password manager
+type: application
+version: 1.0.0
+appVersion: 1.13.1
+title: bitwarden
+home: https://geek-cookbook.funkypenguin.co.nz/
+
+maintainers:
+    - name: hexf
+      email: git@hexf.me
+      url: https://hexf.me
+
+dependencies:
+  - name: funkycore
+    version: "^1.0.0"
+    repository: "@premix"
