@@ -6,6 +6,8 @@ names:
 
     # Name of the media claim
     media: autopirate-media
+  pod: autopirate-media-consumer
+
 
 app:
 
