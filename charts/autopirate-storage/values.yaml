@@ -8,7 +8,6 @@ names:
     media: autopirate-media
   pod: autopirate-media-consumer
 
-
 app:
 
   # Labels are customizable to how you like.
