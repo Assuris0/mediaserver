@@ -42,7 +42,7 @@ cmd_addpkg(){
 }
 
 cmd_install(){
-    helm install $1 charts/$1/ -n staging #-f testvals/$1.yaml
+    helm install $1 charts/$1/ -n staging -f testvals/$1.yaml
 }
 
 pushd . > /dev/null
