@@ -1,0 +1,4 @@
+{{ include "funkycore.notes.header" . }}
+
+
+{{ include "funkycore.notes.footer" . }}

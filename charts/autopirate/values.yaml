@@ -1,0 +1,45 @@
+# The claims
+claims:
+  # The Media Storage PVC
+  media:
+    size: 1Gi
+    annotations: {}
+    labels: {}
+    name: media
+  # The claim for all configs
+  config:
+    size: 1Gi
+    annotations: {}
+    labels: {}
+    name: config
+
+  # The downloads PVC
+  download:
+    size: 1Gi
+    annotations: {}
+    labels: {}
+    name: download
+
+ingress:
+  enabled: true
+  name: autopirate
+  type: kube
+  tls: {}
+
+apps:
+  nzbget:
+    name: nzbget
+    enable: true
+    ingress:
+      enable: true
+      host: nzbget.local
+      path: /
+    labels: {}
+    replicas: 1
+    image: linuxserver/nzbget
+    port: 6789
+    resources: {}
+    serviceType: ClusterIP
+
+
+
