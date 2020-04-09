@@ -100,7 +100,6 @@ apps:
     resources: {}
     serviceType: ClusterIP
 
-
   mylar:
     name: mylar
     enable: true
