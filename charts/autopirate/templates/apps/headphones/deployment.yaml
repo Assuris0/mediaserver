@@ -1,4 +1,4 @@
-{{ $app := .Values.apps.bazarr }} {{ $fullname := printf "%s-%s-%s" .Release.Name $app.name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{ $app := .Values.apps.headphones }} {{ $fullname := printf "%s-%s-%s" .Release.Name $app.name .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- if $app.enable  -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -30,7 +30,7 @@ spec:
           httpGet:
             path: /
             port: {{ $app.port | int }}
-          initialDelaySeconds: 30
+          initialDelaySeconds: 300
 
         startupProbe:
           httpGet:

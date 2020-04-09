@@ -25,13 +25,27 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $app.port | int }}
-        
-        readinessProbe:
+
+        livenessProbe:
         # We get a 401 when we try query over http
         #  httpGet:
         #    path: /
         #    port: {{ $app.port | int }}
         # However - 127.0.0.1 is a trusted IP address :)
+          exec:
+            command:
+              - curl
+              - http://127.0.0.1:{{ $app.port }}
+          initialDelaySeconds: 30
+        startupProbe:
+          exec:
+            command:
+              - curl
+              - http://127.0.0.1:{{ $app.port }}
+          failureThreshold: 30
+          periodSeconds: 10
+        
+        readinessProbe:
           exec:
             command:
               - curl

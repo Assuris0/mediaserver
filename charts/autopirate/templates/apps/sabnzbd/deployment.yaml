@@ -1,4 +1,4 @@
-{{ $app := .Values.apps.bazarr }} {{ $fullname := printf "%s-%s-%s" .Release.Name $app.name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{ $app := .Values.apps.sabnzbd }} {{ $fullname := printf "%s-%s-%s" .Release.Name $app.name .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- if $app.enable  -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -25,20 +25,17 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $app.port | int }}
-        
         livenessProbe:
           httpGet:
             path: /
             port: {{ $app.port | int }}
           initialDelaySeconds: 30
-
         startupProbe:
           httpGet:
             path: /
             port: {{ $app.port | int }}
           failureThreshold: 30
           periodSeconds: 10
-          
         readinessProbe:
           httpGet:
             path: /
@@ -52,6 +49,11 @@ spec:
               mountPath: /downloads
             - name: media
               mountPath: /media
+
+              # We include a config bootstrap to trust our ingress host
+            - name: bootstrap 
+              mountPath: /etc/cont-init.d/98-config-bootstrap-kube
+              subPath: 'bootstrap'
       volumes:
           - name: media
             persistentVolumeClaim:
@@ -62,4 +64,8 @@ spec:
           - name: config
             persistentVolumeClaim:
               claimName: {{ $fullname }}
+          - name: bootstrap
+            configMap:
+              name: {{ $fullname }}
+              defaultMode: 511 #777 but in decimal not octal
 {{- end -}}

@@ -15,7 +15,8 @@ metadata:
     {{- end }}
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.claims.config.accessMode }}
+  storageClassName: {{ .Values.claims.config.storageClass }}
   resources:
     requests:
       storage: {{ .Values.claims.config.size }}
