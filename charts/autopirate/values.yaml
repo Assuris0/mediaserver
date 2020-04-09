@@ -27,6 +27,20 @@ ingress:
   tls: {}
 
 apps:
+  bazarr:
+    name: bazarr
+    enable: true
+    ingress:
+      enable: true
+      host: bazarr.local
+      path: /
+    labels: {}
+    replicas: 1
+    image: linuxserver/bazarr
+    port: 6767
+    resources: {}
+    serviceType: ClusterIP
+
   nzbget:
     name: nzbget
     enable: true

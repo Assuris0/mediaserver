@@ -1,7 +1,9 @@
+{{ $app := .Values.apps.nzbget }} {{ $fullname := printf "%s-%s-%s" .Release.Name $app.name .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- if $app.enable  -}}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.claims.config.name }}
+  name: {{ $fullname }}
   labels:
   {{- include "autopirate.labels" . | indent 4 }}  
   {{- range $key, $value := .Values.claims.config.labels }}
@@ -17,3 +19,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.claims.config.size }}
+{{- end -}}

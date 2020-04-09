@@ -41,7 +41,6 @@ spec:
         volumeMounts:
             - name: config
               mountPath: /config
-              subPath: nzbget
             - name: downloads
               mountPath: /downloads
             - name: media
@@ -60,7 +59,7 @@ spec:
               claimName: {{ .Values.claims.download.name }}
           - name: config
             persistentVolumeClaim:
-              claimName: {{ .Values.claims.config.name }}
+              claimName: {{ $fullname }}
           - name: bootstrap
             configMap:
               name: {{ $fullname }}
