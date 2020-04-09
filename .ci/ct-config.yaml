@@ -12,5 +12,6 @@ chart-repos:
 lint-conf: .ci/lint-config.yaml
 excluded-charts:
   - funkycore
-  
+  - wash-hands
+
 check-version-increment: false
