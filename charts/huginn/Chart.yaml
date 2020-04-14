@@ -1,7 +1,7 @@
 apiVersion: v2
 name: huginn
 description: A Helm chart for Kubernetes
-title: Huggin
+title: Huginn
 
 # A chart can be either an 'application' or a 'library' chart.
 #
