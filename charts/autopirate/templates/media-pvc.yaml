@@ -13,7 +13,8 @@ metadata:
     {{- end }}
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.claims.media.accessMode }}
+  storageClassName: {{ .Values.claims.media.storageClass }}
   resources:
     requests:
       storage: {{ .Values.claims.media.size }}

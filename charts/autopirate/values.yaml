@@ -1,11 +1,15 @@
 # The claims
 claims:
+
   # The Media Storage PVC
   media:
     size: 1Gi
     annotations: {}
     labels: {}
     name: media
+    storageClass: local-path
+    accessMode: ReadWriteOnce
+
   # The claim specs for each config claim
   config:
     size: 10Mi
@@ -21,6 +25,8 @@ claims:
     annotations: {}
     labels: {}
     name: download
+    storageClass: local-path
+    accessMode: ReadWriteOnce
 
 ingress:
   enabled: true
