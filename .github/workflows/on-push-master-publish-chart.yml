@@ -21,12 +21,12 @@ jobs:
     - name: Add our repo
       run: |
         helm init 
-        helm repo add premix https://${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
+        helm repo add premix https://${{ secrets.CR_TOKEN }}@raw.githubusercontent.com/funkypenguin/geek-cookbook-premix/helm-charts/
     - name: Publish helm charts
       uses: funkypenguin/helm-gh-pages-action@v1.1.1
       with:
         # A personal access token needed to push your site after it has been built.
-        access-token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+        access-token: ${{ secrets.CR_TOKEN }}
         # The branch expected by GitHub to have the static files needed for your site.
         deploy-branch: helm-charts
         # The folder in which the helm charts are located

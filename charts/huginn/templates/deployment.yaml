@@ -24,6 +24,7 @@ spec:
           httpGet:
             path: {{ .Values.app.probes.liveness.httpPath }}
             port: {{ .Values.app.service.internalPort | int }}
+          initialDelaySeconds: 180
         readinessProbe:
           httpGet:
             path: {{ .Values.app.probes.readiness.httpPath }}
