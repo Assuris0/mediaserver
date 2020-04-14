@@ -10,5 +10,10 @@ chart-repos:
   - kube-eagle=https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
 
 lint-conf: .ci/lint-config.yaml
+chart-yaml-schema: .ci/chart_schema.yaml
+
 excluded-charts:
   - funkycore
+  - wash-hands
+
+check-version-increment: false

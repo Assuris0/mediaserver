@@ -41,6 +41,10 @@ cmd_addpkg(){
     mv $1*.tgz $CHART/charts 
 }
 
+cmd_install(){
+    helm install $1 charts/$1/ -n staging -f testvals/$1.yaml
+}
+
 pushd . > /dev/null
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 
@@ -74,6 +78,9 @@ case "$1" in
         cmd_build
         cmd_update
         cmd_lint
+        ;;
+    "install")
+        cmd_install $2
         ;;
     *)
         show_help
