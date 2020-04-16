@@ -8,10 +8,10 @@ names:
   service: huginn
 
   # The name of the secret
-  secret: huggin
+  secret: huginn
 
   # The name of the Ingress rule
-  ingress: huggin
+  ingress: huginn
 
 app:
   # The number of pods this app should start and maintain
@@ -40,7 +40,7 @@ app:
     internalPort: 3000
 
     # The name of the port
-    name: http-huggin
+    name: http-huginn
 
   probes:
     liveness:
@@ -79,10 +79,10 @@ smtp:
   enable: true
 
   # Mail domain to send from
-  domain: huggin.local
+  domain: huginn.local
 
   # Email Account Username
-  username: huginn@huggin.local
+  username: huginn@huginn.local
 
   # Email Account Password
   password: hugginwithhuginn

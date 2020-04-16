@@ -3,7 +3,7 @@ kind: Deployment
 metadata: 
   name: {{ .Values.names.deployment }}
   labels:
-{{ include "huggin.labels" . | indent 4 }}    
+{{ include "huginn.labels" . | indent 4 }}    
 spec:
   replicas: {{ .Values.app.replicas | int }}
   selector:
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-{{ include "huggin.labels" . | indent 8 }}        
+{{ include "huginn.labels" . | indent 8 }}        
     spec:
       containers:
       - name: {{ .Chart.Name }}
