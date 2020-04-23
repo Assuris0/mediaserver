@@ -1,0 +1,7 @@
+[proxmox]
+splinter    ansible_host=192.168.29.3   ansible_user=root
+
+[nodes]
+raphael     ansible_host=192.168.38.101
+donatello   ansible_host=192.168.38.102
+leonardo    ansible_host=192.168.30.103

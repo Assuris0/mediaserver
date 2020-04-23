@@ -1,0 +1,111 @@
+# This indented section should only run on proxmox
+- name: Run proxmox-specific tasks
+  when: 
+  - "inventory_hostname in groups['proxmox']" 
+  block:
+
+# Only run these tasks if the crontroller VM template doesn't exist yet
+  # Sourced from https://pve.proxmox.com/wiki/Cloud-Init_Support
+
+  # Only run this on proxmox hosts
+  - name: Does our VM template exist already?
+    shell: qm list | grep -q swarm-template
+    register: _swarm_template_exists
+    failed_when: _swarm_template_exists.rc not in [0,1]
+    when: "inventory_hostname in groups['proxmox']" 
+
+  # Create template for controller
+  - name: Create proxmox swarm template template if it doesn't already exist
+    when: 
+    - _swarm_template_exists.rc == 1
+    - "inventory_hostname in groups['proxmox']" 
+    block:
+
+    - name: "[create template] Download latest ubuntu cloud-init image"
+      get_url:
+        url: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
+        dest: /tmp/
+
+    - name: "[create template] Create new VM"
+      command: qm create 201 --name swarm-template --memory {{ proxmox_vm_ram }} --net0 virtio,bridge=vmbr0,tag={{ proxmox_vm_vlan_tag }}
+
+    - name: "[create template] Import cloud-init image into disk"
+      command: qm importdisk 201 /tmp/bionic-server-cloudimg-amd64.img pve2
+
+    - name: "[create template] Attach disk to template VM"
+      command: qm set 201 --scsihw virtio-scsi-pci --scsi0 pve2:vm-201-disk-0   
+
+    - name: "[create template] Allocate storage for VM disk1"
+      command: pvesm alloc pve2 201 'vm-201-disk-1' {{ proxmox_vm_ram_disk1_size }}G            
+
+    - name: "[create template] Attach disk to template VM"
+      command: qm set 201 --scsihw virtio-scsi-pci --scsi1 pve2:vm-201-disk-1 
+
+    - name: "[create template] Create CDROM image to pass cloud-init params to template VM"
+      command: qm set 201 --ide2 pve2:cloudinit    
+
+    - name: "[create template] Set template VM to boot from hard disk only (speeds up boot)"
+      command: qm set 201 --boot c --bootdisk scsi0
+
+    - name: "[create template] Add a serial console to the template for good measure"
+      command: qm set 201 --serial0 socket --vga serial0
+
+    - name: "[create template] Turn VM into template"
+      command: qm template 201
+
+# Run these locally
+- name: Prepare terraform plan locally
+  delegate_to: localhost
+  block:
+      
+  - name: Create temporary directory for terraform plan
+    file:
+      name: "{{ terraform_dir }}"
+      state: directory
+    when: "inventory_hostname in groups['proxmox']"  # A quick way to ensure this only runs once    
+
+  - name: "Are there existing .tf files in {{ terraform_dir }}?"
+    find:
+      paths: "{{ terraform_dir }}"
+      patterns: "*.tf"
+    register: files_to_delete
+    when: "inventory_hostname in groups['proxmox']"  # A quick way to ensure this only runs once    
+
+  - name: "Delete any .tf files found in {{ terraform_dir }}"
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"
+    when: "inventory_hostname in groups['proxmox']"  # A quick way to ensure this only runs once    
+
+  - name: Create terraform plan for terraform provider
+    template:
+      src: main.tf.j2
+      dest: "{{ terraform_dir }}/main.tf"
+    when: "inventory_hostname in groups['proxmox']" 
+
+  - name: Create terraform plan for swarm nodes
+    template:
+      src: swarm_node.tf.j2
+      dest: "{{ terraform_dir }}/{{ inventory_hostname_short }}.tf"
+    when: "inventory_hostname in groups['nodes']" 
+    with_items: "{{ groups['nodes'] }}"
+
+  - name: Run terraform init
+    command: terraform init
+    args:
+      chdir: "{{ terraform_dir }}"
+    when: "inventory_hostname in groups['proxmox']" 
+
+  - name: Run terraform plan
+    command: terraform plan
+    args:
+      chdir: "{{ terraform_dir }}"
+    when: "inventory_hostname in groups['proxmox']" 
+          
+  - name: Run terraform apply
+    command: terraform apply -auto-approve
+    args:
+      chdir: "{{ terraform_dir }}"
+    when: "inventory_hostname in groups['proxmox']" 
+                  
