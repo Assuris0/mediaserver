@@ -1,7 +1,24 @@
 [proxmox]
 splinter    ansible_host=192.168.29.3   ansible_user=root
 
-[nodes]
+[vms]
 raphael     ansible_host=192.168.38.101
 donatello   ansible_host=192.168.38.102
-leonardo    ansible_host=192.168.30.103
+leonardo    ansible_host=192.168.38.103
+
+[swarm_managers]
+raphael     ansible_host=192.168.38.101
+donatello   ansible_host=192.168.38.102
+leonardo    ansible_host=192.168.38.103
+
+[swarm_workers]
+raphael     ansible_host=192.168.38.101
+donatello   ansible_host=192.168.38.102
+leonardo    ansible_host=192.168.38.103
+
+[k3s_masters]
+raphael     ansible_host=192.168.38.101
+
+[k3s_workers]
+donatello   ansible_host=192.168.38.102
+leonardo    ansible_host=192.168.38.103

@@ -84,12 +84,12 @@
       dest: "{{ terraform_dir }}/main.tf"
     when: "inventory_hostname in groups['proxmox']" 
 
-  - name: Create terraform plan for swarm nodes
+  - name: Create terraform plan for vms
     template:
       src: swarm_node.tf.j2
       dest: "{{ terraform_dir }}/{{ inventory_hostname_short }}.tf"
-    when: "inventory_hostname in groups['nodes']" 
-    with_items: "{{ groups['nodes'] }}"
+    when: "inventory_hostname in groups['vms']" 
+    with_items: "{{ groups['vms'] }}"
 
   - name: Run terraform init
     command: terraform init
