@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+# If we have any proxmox hosts, then use them to create the necessary VMs
+- hosts: proxmox_servers:proxmox_vms
   gather_facts: no
   become: yes
 
@@ -9,6 +10,7 @@
   # Setup Proxmox Terraform plugin locally
   - { import_role: { name: proxmox }, tags: [ proxmox ], become: no } 
 
+# If we have any k3s masters
 - hosts: k3s_masters
   gather_facts: yes
   become: yes
@@ -17,6 +19,7 @@
   # Setup K3s master
   - { import_role: { name: k3s-master }, tags: [ k3s-master ], become: no }   
 
+# If we have any k3s masters/workers, deploy them here
 - hosts: k3s_masters:k3s_workers
   gather_facts: yes
   become: yes
