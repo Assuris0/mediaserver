@@ -1,0 +1,4 @@
+# These values are supplied by default using vars/01_fake_vault.yml, and hopefully overridden
+# by your own vars/vault.yml (encrypted)
+
+proxmox_host_password: "{{ vault_proxmox_host_password }}"

@@ -1,1 +1,5 @@
+# Individual patrons will have their own hosts files
 hosts
+
+# Don't check encrypted vault vars into GH (no point)
+group_vars/all/vault.yml
