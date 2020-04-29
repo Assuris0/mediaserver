@@ -8,33 +8,31 @@
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
 
-- name: Install docker packages
+- name: install docker packages
   apt:
     name: "{{ packages }}"
   vars:
     packages:
     - docker-ce
     - docker-ce-cli
+    - python3-docker
 
-- name: determine swarm status
-  shell: >
-    docker info | egrep '^Swarm: ' | cut -d ' ' -f2
-  register: swarm_status
+- name: init the swarm on the first node
+  docker_swarm:
+    state: present
+  register: docker_swarm_init
+  notify: Set the join tokens as an Ansible fact
+  delegate_to: "{{ play_hosts[0] }}"
 
-- name: create swarm_manager_operational group
-  add_host:
-    hostname: "{{ item }}"
-    groups: swarm_manager_operational
-  with_items: "{{ ansible_play_hosts | default(play_hosts) }}"
-  when: "'active' in hostvars[item].swarm_status.stdout_lines"
-  run_once: true
+- set_fact:
+    # worker_token:   "{{ docker_swarm_init.swarm_facts.JoinTokens.Worker }}"
+    manager_token:  "{{ docker_swarm_init.swarm_facts.JoinTokens.Manager }}"
+    master_ip:      "{{ hostvars[play_hosts[0]].ansible_default_ipv4.address }}"
 
-- name: create swarm_manager_bootstrap group
-  add_host:
-    hostname: "{{ item }}"
-    groups: swarm_manager_bootstrap
-  with_items: "{{ ansible_play_hosts | default(play_hosts) }}"
-  when: "'active' not in hostvars[item].swarm_status.stdout_lines"
-  run_once: true
-
-
+- name: join the swarm on the remaining nodes
+  docker_swarm:
+    advertise_addr: "{{ ansible_default_ipv4.address }}"
+    remote_addrs: "{{ master_ip }}"
+    join_token: "{{ manager_token }}"
+    state: join
+  when: inventory_hostname != play_hosts[0]

@@ -18,6 +18,7 @@ EOF
         model = "virtio"
         id = 0
         bridge = "vmbr0"
+        macaddr = "{{ mac }}"
     }
     disk {
         storage = "{{ proxmox_storage }}"
