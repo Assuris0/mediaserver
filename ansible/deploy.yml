@@ -1,0 +1,45 @@
+---
+
+# If we have any proxmox hosts, then use them to create the necessary VMs
+- hosts: proxmox_servers:proxmox_vms
+  gather_facts: no
+  become: yes
+
+  tasks: 
+
+  # Setup Proxmox Terraform plugin locally
+  - { import_role: { name: proxmox }, tags: [ proxmox ], become: no }
+
+#### If we have any swarm hosts
+# Init the Docker Swarm only on the first manager
+- hosts: swarm_nodes
+  gather_facts: yes
+  become: yes
+
+  tasks:
+
+  # Setup swarm
+  - { import_role: { name: docker-swarm }, tags: [ docker-swarm ] }   
+
+
+# If we have any k3s masters
+- hosts: k3s_masters
+  gather_facts: yes
+  become: yes
+  tasks:
+
+  # Setup K3s master
+  - { import_role: { name: k3s-master }, tags: [ k3s-master ] }   
+
+# If we have any k3s masters/workers, deploy them here
+- hosts: k3s_masters:k3s_workers
+  gather_facts: yes
+  become: yes
+
+  vars:
+    use_proxy: false
+
+  tasks:
+
+  # Setup K3s worker
+  - { import_role: { name: k3s-worker }, tags: [ k3s-worker ] }     
