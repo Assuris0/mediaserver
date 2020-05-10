@@ -27,22 +27,22 @@
         dest: /tmp/
 
     - name: "[create template] Create new VM"
-      command: qm create 201 --name template-geek-cookbook --memory {{ proxmox_vm_ram }} --net0 virtio,bridge=vmbr0,tag={{ proxmox_vm_vlan_tag }}
+      command: qm create 201 --name template-geek-cookbook --memory {{ proxmox_vm_ram }} --net0 virtio,bridge={{ proxmox_vm_network_bridge }},tag={{ proxmox_vm_vlan_tag }}
 
     - name: "[create template] Import cloud-init image into disk"
-      command: qm importdisk 201 /tmp/bionic-server-cloudimg-amd64.img pve2
+      command: qm importdisk 201 /tmp/bionic-server-cloudimg-amd64.img {{ proxmox_storage }}
 
     - name: "[create template] Attach disk to template VM"
-      command: qm set 201 --scsihw virtio-scsi-pci --scsi0 pve2:vm-201-disk-0   
+      command: qm set 201 --scsihw virtio-scsi-pci --scsi0 {{ proxmox_storage }}:vm-201-disk-0   
 
     - name: "[create template] Allocate storage for VM disk1"
-      command: pvesm alloc pve2 201 'vm-201-disk-1' {{ proxmox_vm_disk1_size }}G            
+      command: pvesm alloc {{ proxmox_storage }} 201 'vm-201-disk-1' {{ proxmox_vm_disk1_size }}G            
 
     - name: "[create template] Attach disk to template VM"
-      command: qm set 201 --scsihw virtio-scsi-pci --scsi1 pve2:vm-201-disk-1 
+      command: qm set 201 --scsihw virtio-scsi-pci --scsi1 {{ proxmox_storage }}:vm-201-disk-1 
 
     - name: "[create template] Create CDROM image to pass cloud-init params to template VM"
-      command: qm set 201 --ide2 pve2:cloudinit    
+      command: qm set 201 --ide2 {{ proxmox_storage }}:cloudinit    
 
     - name: "[create template] Set template VM to boot from hard disk only (speeds up boot)"
       command: qm set 201 --boot c --bootdisk scsi0
@@ -110,6 +110,8 @@
     when: "inventory_hostname in groups['proxmox_servers']" 
                   
 - name: Don't exit this play until the machines are reachable (they might still be booting up)
-  wait_for_connection:
+  wait_for_connection: 
+    delay: 60
+    timeout: 300
   vars:
     ansible_pipelining: no

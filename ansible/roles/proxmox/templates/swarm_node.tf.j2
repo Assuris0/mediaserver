@@ -17,7 +17,7 @@ EOF
         tag = {{ proxmox_vm_vlan_tag }}
         model = "virtio"
         id = 0
-        bridge = "vmbr0"
+        bridge = "{{ proxmox_vm_network_bridge }}"
         macaddr = "{{ mac }}"
     }
     disk {
