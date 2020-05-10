@@ -110,6 +110,8 @@
     when: "inventory_hostname in groups['proxmox_servers']" 
                   
 - name: Don't exit this play until the machines are reachable (they might still be booting up)
-  wait_for_connection:
+  wait_for_connection: 
+    delay: 60
+    timeout: 300
   vars:
     ansible_pipelining: no
