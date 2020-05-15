@@ -21,8 +21,8 @@
   docker_swarm:
     state: present
   register: docker_swarm_init
-  notify: Set the join tokens as an Ansible fact
   delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
 
 - set_fact:
     # worker_token:   "{{ docker_swarm_init.swarm_facts.JoinTokens.Worker }}"
