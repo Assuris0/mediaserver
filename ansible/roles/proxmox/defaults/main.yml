@@ -1,7 +1,8 @@
 proxmox_vm_ram: 2048
 proxmox_vm_cores: 2
-proxmox_vm_network_bridge: vmbr0
+proxmox_vm_network_bridge: vmbr0
 proxmox_vm_vlan_tag: 8
+proxmox_vm_disk0_size: 10
 proxmox_vm_disk1_size: 20
 proxmox_storage: pve2
 terraform_dir: ~/.terraform/funky-penguins-are-funky
