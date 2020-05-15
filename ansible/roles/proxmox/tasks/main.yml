@@ -35,12 +35,6 @@
     - name: "[create template] Attach disk to template VM"
       command: qm set 201 --scsihw virtio-scsi-pci --scsi0 {{ proxmox_storage }}:vm-201-disk-0   
 
-    - name: "[create template] Allocate storage for VM disk1"
-      command: pvesm alloc {{ proxmox_storage }} 201 'vm-201-disk-1' {{ proxmox_vm_disk1_size }}G            
-
-    - name: "[create template] Attach disk to template VM"
-      command: qm set 201 --scsihw virtio-scsi-pci --scsi1 {{ proxmox_storage }}:vm-201-disk-1 
-
     - name: "[create template] Create CDROM image to pass cloud-init params to template VM"
       command: qm set 201 --ide2 {{ proxmox_storage }}:cloudinit    
 

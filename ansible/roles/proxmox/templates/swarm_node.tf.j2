@@ -23,10 +23,17 @@ EOF
     disk {
         storage = "{{ proxmox_storage }}"
         storage_type = "lvm"
-        size =  {{ proxmox_vm_disk1_size }}
+        size =  {{ proxmox_vm_disk0_size }}
         id = 0
         type = "scsi"
-    }      
+    }    
+    disk {
+        storage = "{{ proxmox_storage }}"
+        storage_type = "lvm"
+        size =  {{ proxmox_vm_disk1_size }}
+        id = 1
+        type = "scsi"
+    }          
 }
 
 
