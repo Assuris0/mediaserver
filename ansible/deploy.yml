@@ -21,6 +21,9 @@
   # Setup swarm
   - { import_role: { name: docker-swarm }, tags: [ docker-swarm ] }   
 
+  # Setup ceph
+  - { import_role: { name: ceph }, tags: [ ceph ] }   
+
 
 # If we have any k3s masters
 - hosts: k3s_masters

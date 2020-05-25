@@ -1,0 +1,123 @@
+
+- name: download latest cephadm
+  get_url:
+    url: https://github.com/ceph/ceph/raw/octopus/src/cephadm/cephadm
+    dest: /usr/local/sbin/cephadm
+    mode: 0755
+
+- name: add ceph repo apt-key
+  apt_key: 
+    url: https://download.ceph.com/keys/release.asc
+    state: present 
+
+- name: install ceph repo
+  shell: cephadm add-repo --release octopus
+
+- name: install ceph tools
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - ceph-common
+
+- name: ensure /etc/ceph exists
+  file:
+    path: /etc/ceph
+    state: directory
+
+- name: have we already been bootstrapped?
+  stat:
+    path: /etc/ceph/ceph.conf
+  register: _ceph_configured
+
+- name: bootstrap ceph cluster on first host
+  command: "cephadm bootstrap --mon-ip {{ hostvars[play_hosts[0]].ansible_default_ipv4.address }}"
+  delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
+  when: not _ceph_configured.stat.exists
+
+- name: get SSH public key from first host
+  command: cat /etc/ceph/ceph.pub
+  register: cephadm_ssh_public_key
+  delegate_to: "{{ play_hosts[0] }}"
+
+- name: get ceph admin keyring from first host
+  command: cat /etc/ceph/ceph.client.admin.keyring
+  register: ceph_admin_keyring
+  delegate_to: "{{ play_hosts[0] }}"
+
+- name: get ceph/ceph.conf from first host
+  command: cat /etc/ceph/ceph.conf
+  register: ceph_conf
+  delegate_to: "{{ play_hosts[0] }}"
+
+- name: deploy cephadm ssh key on other hosts
+  authorized_key: 
+    user: root
+    key: "{{ cephadm_ssh_public_key.stdout }}"   
+  when: inventory_hostname != play_hosts[0]
+
+- name: deploy ceph admin keyring to other hosts
+  copy: 
+    dest: /etc/ceph/ceph.client.admin.keyring
+    content: "{{ ceph_admin_keyring.stdout }}\n"            
+  when: inventory_hostname != play_hosts[0]
+
+- name: deploy ceph/ceph.conf to other hosts
+  copy: 
+    dest: /etc/ceph/ceph.conf
+    content: "{{ ceph_conf.stdout }}\n"            
+  when: inventory_hostname != play_hosts[0]  
+
+- name: add remaining hosts to ceph cluster
+  command: ceph orch host add {{ inventory_hostname }} {{ ansible_default_ipv4.address }}
+  delegate_to: "{{ play_hosts[0] }}"
+  when: inventory_hostname != play_hosts[0]
+
+- name: add all available devices as OSDs
+  command: ceph orch apply osd --all-available-devices
+  delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
+
+- name: is our cephfs created yet?
+  shell: ceph fs ls | grep data
+  register: _cephfs_created
+  delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
+  failed_when: _cephfs_created.rc not in [0,1]
+
+- name: create cephfs (if it doesn't already exist)
+  command: ceph fs volume create data
+  delegate_to: "{{ play_hosts[0] }}"
+  run_once: true
+  when: _cephfs_created.rc == 1
+
+- name: add the hosts in the group to /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item]['ansible_default_ipv4']['address'] }} {{item}}"
+    state: present
+  when: hostvars[item]['ansible_facts']['default_ipv4'] is defined
+  with_items:
+    - "{{ play_hosts }}"  
+
+- name: do we have an mds up yet yet? (try for 5 min)
+  shell: ceph -s | grep mds | grep '1 up'
+  register: _result
+  until: _result.failed == false
+  retries: 60 # retry X times  
+  delay: 5    # pause for X sec b/w each call  
+
+- name: concatenate the names of all the hosts for the next step
+  set_fact:
+    _ceph_mons: "{{ play_hosts | join(',') }}"  
+
+- name: add cephfs mount to /etc/fstab, and mount it
+  mount:
+    src: "{{ _ceph_mons }}:/"
+    path: /var/data
+    state: mounted
+    fstype: ceph
+    opts: name=admin,noatime,_netdev
