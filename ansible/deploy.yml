@@ -15,6 +15,8 @@
 - hosts: swarm_nodes
   gather_facts: yes
   become: yes
+  vars:
+    orchestrator: docker-swarm # this'll tell all roles that we're doing a docker-swarm deploy
 
   tasks:
 
@@ -29,6 +31,9 @@
 - hosts: k3s_masters
   gather_facts: yes
   become: yes
+  vars:
+    orchestrator: kubernetes # this'll tell all roles that we're doing a kubernetes deploy
+
   tasks:
 
   # Setup K3s master
@@ -38,9 +43,8 @@
 - hosts: k3s_masters:k3s_workers
   gather_facts: yes
   become: yes
-
   vars:
-    use_proxy: false
+    orchestrator: kubernetes # this'll tell all roles that we're doing a kubernetes deploy
 
   tasks:
 

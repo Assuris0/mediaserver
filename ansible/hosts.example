@@ -10,6 +10,10 @@ splinter    ansible_host=192.168.29.3   ansible_user=root
 raphael     ansible_host=192.168.38.101 mac=52:54:00:38:01:01
 donatello   ansible_host=192.168.38.102 mac=52:54:00:38:01:02
 leonardo    ansible_host=192.168.38.103 mac=52:54:00:38:01:03
+# shredder    ansible_host=192.168.38.201 mac=52:54:00:38:02:01
+# rocksteady  ansible_host=192.168.38.202 mac=52:54:00:38:02:02
+# bebop       ansible_host=192.168.38.203 mac=52:54:00:38:02:03
+
 
 [swarm_nodes]
 raphael     ansible_host=192.168.38.101
@@ -17,8 +21,8 @@ donatello   ansible_host=192.168.38.102
 leonardo    ansible_host=192.168.38.103
 
 # [k3s_masters]
-# raphael     ansible_host=192.168.38.101
+# shredder     ansible_host=192.168.38.201
 
 # [k3s_workers]
-# donatello   ansible_host=192.168.38.102
-# leonardo    ansible_host=192.168.38.103
+# rocksteady   ansible_host=192.168.38.202
+# bebop        ansible_host=192.168.38.203

@@ -1,1 +1,3 @@
 vault_proxmox_host_password: dont-use-me-but-dont-fail-pipelines
+vault_ceph_dashboard_username: batman
+vault_ceph_dashboard_password: supermansucks

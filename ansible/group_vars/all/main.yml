@@ -2,3 +2,5 @@
 # by your own vars/vault.yml (encrypted)
 
 proxmox_host_password: "{{ vault_proxmox_host_password }}"
+ceph_dashboard_username: "{{ vault_ceph_dashboard_username }}"
+ceph_dashboard_password: "{{ vault_ceph_dashboard_password }}"
