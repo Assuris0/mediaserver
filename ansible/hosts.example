@@ -14,11 +14,10 @@ shredder    ansible_host=192.168.38.201 mac=52:54:00:38:02:01
 rocksteady  ansible_host=192.168.38.202 mac=52:54:00:38:02:02
 bebop       ansible_host=192.168.38.203 mac=52:54:00:38:02:03
 
-
-# [swarm_nodes]
-# raphael     ansible_host=192.168.38.101
-# donatello   ansible_host=192.168.38.102
-# leonardo    ansible_host=192.168.38.103
+[swarm_nodes]
+raphael     ansible_host=192.168.38.101
+donatello   ansible_host=192.168.38.102
+leonardo    ansible_host=192.168.38.103
 
 [k3s_masters]
 shredder     ansible_host=192.168.38.201
