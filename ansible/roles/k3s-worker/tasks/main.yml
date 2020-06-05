@@ -29,3 +29,10 @@
   when: 
     - workers_install_result is changed
     - "inventory_hostname in groups['k3s_workers']"  
+
+- name: setup kubectl auto-completion
+  lineinfile:
+    path: /root/.bash_profile
+    regexp: 'source <\(kubectl completion bash\)'
+    line: source <(kubectl completion bash)
+    create: yes

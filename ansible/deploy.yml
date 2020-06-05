@@ -46,7 +46,13 @@
   vars:
     orchestrator: kubernetes # this'll tell all roles that we're doing a kubernetes deploy
 
+  environment:
+    KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+
   tasks:
 
   # Setup K3s worker
   - { import_role: { name: k3s-worker }, tags: [ k3s-worker ] }     
+
+  # Setup ceph
+  - { import_role: { name: ceph }, tags: [ ceph ], run_once: true }   

@@ -30,18 +30,18 @@
     dest: "{{ manifestdir.path }}/toolbox.yaml"    
 
 - name: Yes, CRDs have applied
-  shell: kubectl --kubeconfig {{ kubeconfig }} get crd cephclusters.ceph.rook.io
+  shell: kubectl get crd cephclusters.ceph.rook.io
   register: _result        
   until: _result.failed == false
   retries: 60 # retry X times  
   delay: 5     # pause for X sec b/w each call
 
 - name: Apply manifests
-  shell: "kubectl --kubeconfig {{ kubeconfig }} apply -R -f {{ manifestdir.path }} --wait"
+  shell: "kubectl apply -R -f {{ manifestdir.path }} --wait"
 
 - name: Setup default storageclass
   command: |
-    kubectl --kubeconfig {{ kubeconfig }} patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+    kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
   
 - name: "Remove temporary directories 🗑"
   file:
@@ -49,27 +49,11 @@
     state: absent
 
 - debug:
-    msg: Wait for ceph-tools pod to start up
-
-- name: Increasing default PG count to 64
-  shell: |
-    kubectl --kubeconfig {{ kubeconfig }} -n rook-ceph exec $(kubectl --kubeconfig {{ kubeconfig }} -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- ceph osd pool set replicapool pg_num 64
-  register: _result        
-  until: _result.failed == false
-  retries: 90 # retry X times  
-  delay: 5     # pause for X sec b/w each call  
-
-- name: Archiving any previous crash messages (pods restart, get over it ceph)
-  shell: |
-    kubectl --kubeconfig {{ kubeconfig }} -n rook-ceph exec $(kubectl --kubeconfig {{ kubeconfig }} -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- ceph crash archive-all
-  ignore_errors: true
-
-- debug:
     msg: Wait for cluster to be able to provision PVs
 
 - name: Cluster is now able to provision PVs!
   shell: |
-    kubectl --kubeconfig {{ kubeconfig }} -n rook-ceph exec $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- ceph -s | grep -v '0 osds' | grep HEALTH_OK
+    kubectl -n rook-ceph exec $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- ceph -s | grep -v '0 osds' | grep HEALTH_OK
   register: _result        
   until: _result.failed == false
   retries: 90 # retry X times  
