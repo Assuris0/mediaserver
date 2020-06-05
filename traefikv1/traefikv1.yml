@@ -3,7 +3,7 @@ version: "3.2"
 services:
   app:
     image: traefik:alpine
-    env_file: /var/data/config/traefik/traefik.env
+    env_file: /var/data/config/traefikv1/traefikv1.env
     # Note below that we use host mode to avoid source nat being applied to our ingress HTTP/HTTPS sessions
     # Without host mode, all inbound sessions would have the source IP of the swarm nodes, rather than the
     # original source IP, which would impact logging. If you don't care about this, you can expose ports the 
@@ -22,9 +22,9 @@ services:
         protocol: tcp
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/data/config/traefik:/etc/traefik
-      - /var/data/traefik/traefik.log:/traefik.log
-      - /var/data/traefik/acme.json:/acme.json
+      - /var/data/config/traefikv1:/etc/traefik
+      - /var/data/traefikv1/traefik.log:/traefik.log
+      - /var/data/traefikv1/acme.json:/acme.json
     networks:
       - traefik_public
     # Global mode makes an instance of traefik listen on _every_ node, so that regardless of which
@@ -44,7 +44,7 @@ services:
 
   traefik-forward-auth:
     image: funkypenguin/traefik-forward-auth
-    env_file: /var/data/config/traefik/traefik-forward-auth.env
+    env_file: /var/data/config/traefikv1/traefikv1.env
     networks:
       - traefik_public
     deploy:

@@ -16,6 +16,7 @@
     - docker-ce
     - docker-ce-cli
     - python3-docker
+    - python3-jsondiff
 
 - name: init the swarm on the first node
   docker_swarm:

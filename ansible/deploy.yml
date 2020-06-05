@@ -26,6 +26,17 @@
   # Setup ceph
   - { import_role: { name: ceph }, tags: [ ceph ] }   
 
+  - name: Run remainder of tasks on one node only
+    delegate_to: "{{ play_hosts[0] }}"
+    run_once: true
+    block:
+
+    # Setup traefik (the overlay network)
+    - { import_role: { name: traefik }, tags: [ traefik ] }   
+
+    # Setup traefikv1
+    - { import_role: { name: traefikv1 }, tags: [ traefikv1 ] }   
+
 
 # If we have any k3s masters
 - hosts: k3s_masters
@@ -56,3 +67,4 @@
 
   # Setup ceph
   - { import_role: { name: ceph }, tags: [ ceph ], run_once: true }   
+

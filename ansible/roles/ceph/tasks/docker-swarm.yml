@@ -109,6 +109,12 @@
   with_items:
     - "{{ play_hosts }}"  
 
+- name: prevent cloud-init from overwriting /etc/hosts
+  lineinfile:
+    dest: /etc/cloud/cloud.cfg
+    regex: "update_etc_hosts"
+    state: absent
+
 - name: do we have an mds up yet yet? (try for 5 min)
   shell: ceph -s | grep mds | grep '1 up'
   register: _result

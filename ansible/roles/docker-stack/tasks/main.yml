@@ -1,0 +1,40 @@
+- name: "{{ recipe }} --> Import any custom vars defined for this chart"
+  include_vars: "{{lookup('first_found', params)}}"
+  vars:
+    params:
+      files:
+        - '{{ helm_chart_name }}.yaml'
+        - default.yaml
+      paths:
+        - 'vars'
+
+- name: "{{ recipe }} --> ensure /var/data/config exists"
+  file:
+    path: /var/data/config
+    state: directory
+
+- name: "{{ recipe }} --> ensure /var/data/{{ recipe }} exists"
+  file:
+    path: "/var/data/{{ recipe }}"
+    state: directory    
+
+- name: "{{ recipe }} --> copy stack config to temporary directory"
+  copy:
+    src: ../../../../{{ recipe }}
+    dest: /var/data/config
+
+- name: "{{ recipe }} --> copy samples to _real_ files if the real ones don't exist"
+  shell: |
+    cd /var/data/config/{{ recipe }}
+    for SAMPLE in `ls \*-sample`; do
+      REALNAME=`basename -s '-sample' $SAMPLE`
+      if [ ! -f "$REALNAME" ]; then
+        cp $SAMPLE $REALNAME
+      fi
+    done
+
+- name: "{{ recipe }} --> deploy stack"
+  docker_stack:
+    state: present
+    name: "{{ recipe }}"
+    compose: "/var/data/config/{{ recipe }}/{{ recipe }}.yml"

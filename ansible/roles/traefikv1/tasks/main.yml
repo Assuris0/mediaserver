@@ -1,0 +1,16 @@
+- name: Import docker-stack role
+  import_role:
+    name: docker-stack
+  vars: 
+    recipe: traefikv1
+
+- name: ensure /var/data/traefikv1/traefik.log exists
+  file:
+    path: /var/data/traefikv1/traefik.log
+    state: touch
+
+- name: ensure /var/data/traefikv1/acme.json exists
+  file:
+    path: /var/data/traefikv1/acme.json
+    state: touch
+    mode: 600
