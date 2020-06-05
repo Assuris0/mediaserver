@@ -1,0 +1,28 @@
+name: Notify Discord to premix update 
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'ansible/**'      
+
+jobs:
+  notify-discord:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: |
+          Greetings, geeks!  🤓
+
+          The [pre-mix repository](https://github.com/funkypenguin/geek-cookbook-premix) ansible playbook has been updated!
+
+          Here's what's fresh:
+          :ansible: [${{github.event.commits[0].message}}]({{ EVENT_PAYLOAD.compare }})
+          

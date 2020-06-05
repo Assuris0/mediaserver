@@ -15,23 +15,30 @@
   when: 
   - master_install_result is changed
 
-- name: fetch k3s.yaml
-  become: yes
-  fetch:
-    src: /etc/rancher/k3s/k3s.yaml
-    dest: "{{ kubeconfig }}"
-    flat: yes
+- name: setup kubectl auto-completion
+  lineinfile:
+    path: /root/.bash_profile
+    regexp: 'source <\(kubectl completion bash\)'
+    line: source <(kubectl completion bash)
+    create: yes
 
-- name: update master ip in k3s.yaml
-  replace:
-    path: "{{ kubeconfig }}"
-    regexp: '127.0.0.1'
-    replace: "{{ hostvars[groups['k3s_masters'][0]].ansible_default_ipv4.address }}"
-  delegate_to: localhost
+# - name: fetch k3s.yaml
+#   become: yes
+#   fetch:
+#     src: /etc/rancher/k3s/k3s.yaml
+#     dest: "{{ kubeconfig }}"
+#     flat: yes
 
-- name: update cluster name k3s.yaml
-  replace:
-    path: "{{ kubeconfig }}"
-    regexp: 'default'
-    replace: "{{ cluster_name }}"
-  delegate_to: localhost
+# - name: update master ip in k3s.yaml
+#   replace:
+#     path: "{{ kubeconfig }}"
+#     regexp: '127.0.0.1'
+#     replace: "{{ hostvars[groups['k3s_masters'][0]].ansible_default_ipv4.address }}"
+#   delegate_to: localhost
+
+# - name: update cluster name k3s.yaml
+#   replace:
+#     path: "{{ kubeconfig }}"
+#     regexp: 'default'
+#     replace: "{{ cluster_name }}"
+#   delegate_to: localhost

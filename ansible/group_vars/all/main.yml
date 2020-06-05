@@ -2,3 +2,30 @@
 # by your own vars/vault.yml (encrypted)
 
 proxmox_host_password: "{{ vault_proxmox_host_password }}"
+ceph_dashboard_username: "{{ vault_ceph_dashboard_username }}"
+ceph_dashboard_password: "{{ vault_ceph_dashboard_password }}"
+
+# This is a regex
+ceph_target_disk: "sdb"
+
+# Define the desired versions of various apps here
+packages:
+  rook_ceph:
+    version: v1.3.3
+  ceph:
+    ceph:
+      version: v15.2.1-20200410
+    daemon_base:
+      version: latest-octopus
+    cephcsi:
+      version: v2.0.1
+    csi_node_driver_registrar:
+      version: v1.2.0
+    csi_provisioner:
+      version: v1.4.0
+    csi_snapshotter:
+      version: v1.2.2
+    csi_attacher:
+      version: v2.1.0
+    csi_resizer:
+      version: v0.4.0
