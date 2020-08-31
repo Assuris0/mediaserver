@@ -1,0 +1,224 @@
+apiVersion: v1
+entries:
+  autopirate:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-04-16T18:20:56.995490576Z"
+    dependencies:
+    - name: funkycore
+      repository: '@premix'
+      version: ^1.0.0
+    description: A Helm chart for Kubernetes, crafted by the finest chefs
+    digest: 02c76a6d4906f4a6dfe0610056c463a7f1d19808c99768b229434a8fd02bb986
+    home: https://geek-cookbook.funkypenguin.co.nz/
+    maintainers:
+    - email: git@hexf.me
+      name: hexf
+      url: https://hexf.me
+    name: autopirate
+    type: application
+    urls:
+    - autopirate-0.1.0.tgz
+    version: 0.1.0
+  autopirate-storage:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-04-16T18:20:56.996432113Z"
+    dependencies:
+    - name: funkycore
+      repository: '@premix'
+      version: ^1.0.0
+    description: A Helm chart for Kubernetes, crafted by the finest chefs
+    digest: 446542e348891070f24900c652ab5a10d5eb9e734706c51bb772ada5b99ec036
+    home: https://geek-cookbook.funkypenguin.co.nz/
+    maintainers:
+    - email: git@hexf.me
+      name: hexf
+      url: https://hexf.me
+    name: autopirate-storage
+    type: application
+    urls:
+    - autopirate-storage-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-04-16T18:20:56.995959894Z"
+    dependencies:
+    - name: funkycore
+      repository: '@premix'
+      version: ^1.0.0
+    description: A Helm chart for Kubernetes, crafted by the finest chefs
+    digest: 9509538dd7d7ff68aed57f206a7991119a67ff6bba1279a271bc9af59f9b504c
+    home: https://geek-cookbook.funkypenguin.co.nz/
+    maintainers:
+    - email: git@hexf.me
+      name: hexf
+      url: https://hexf.me
+    name: autopirate-storage
+    type: application
+    urls:
+    - autopirate-storage-0.1.1.tgz
+    version: 0.1.1
+  funkycore:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2020-04-16T18:20:56.996693923Z"
+    description: A collection of helpers for all Cookbook Charts
+    digest: fbdc782c1e2e884d0653f89b26e0e8cae7ba572aefb8d24b48e135d8b60dfcf3
+    home: https://geek-cookbook.funkypenguin.co.nz/
+    maintainers:
+    - email: git@hexf.me
+      name: hexf
+      url: https://hexf.me
+    name: funkycore
+    type: library
+    urls:
+    - funkycore-1.0.0.tgz
+    version: 1.0.0
+  huginn:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-04-16T18:20:56.999915649Z"
+    dependencies:
+    - condition: db.deploy
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.3.0
+    description: A Helm chart for Kubernetes
+    digest: 6b22bf3992a7ad604b5058cafb1900a9d9a9b56edf773f6b03b998900efa9c5a
+    home: https://geek-cookbook.funkypenguin.co.nz/
+    maintainers:
+    - email: git@hexf.me
+      name: hexf
+      url: https://hexf.me
+    name: huginn
+    type: application
+    urls:
+    - huginn-0.1.0.tgz
+    version: 0.1.0
+  wash-hands:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2020-04-16T18:20:57.057514887Z"
+    dependencies:
+    - condition: kured.enabled
+      name: kured
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.4.2
+    - condition: nginx-ingress.enabled
+      name: nginx-ingress
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.30.1
+    - condition: goldilocks.enabled
+      name: goldilocks
+      repository: https://charts.fairwinds.com/stable
+      version: 2.1.0
+    - alias: certmanager
+      condition: certmanager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v0.13.0
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.2.5
+    - condition: loki.enabled
+      name: loki
+      repository: https://grafana.github.io/loki/charts
+      version: 0.25.0
+    - condition: promtail.enabled
+      name: promtail
+      repository: https://grafana.github.io/loki/charts
+      version: 0.18.0
+    - condition: prometheus-operator.enabled
+      name: prometheus-operator
+      repository: https://charts.bitnami.com/bitnami
+      version: 0.11.1
+    - condition: kube-eagle.enabled
+      name: kube-eagle
+      repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
+      version: 1.1.5
+    description: Some base dependencies in a sane cluster
+    digest: 9e40c181572927137beeca776ce381b7bee3e0a97cd7a25f97e61df16ecd9cce
+    home: https://geek-cookbook.funkypenguin.co.nz
+    maintainers:
+    - email: davidy@funkypenguin.co.nz
+      name: funkypenguin
+      url: https://www.funkypenguin.co.nz
+    name: wash-hands
+    urls:
+    - wash-hands-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v1
+    appVersion: 0.0.1
+    created: "2020-04-16T18:20:57.032994935Z"
+    dependencies:
+    - condition: kured.enabled
+      name: kured
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.4.x
+    - condition: nginx-ingress.enabled
+      name: nginx-ingress
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.25.x
+    - condition: goldilocks.enabled
+      name: goldilocks
+      repository: https://charts.fairwinds.com/stable
+      version: 2.1.0
+    - alias: certmanager
+      condition: certmanager.enabled
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v0.13.0
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://charts.bitnami.com/bitnami
+      version: 1.2.5
+    - condition: loki.enabled
+      name: loki
+      repository: https://grafana.github.io/loki/charts
+      version: 0.25.0
+    - condition: promtail.enabled
+      name: promtail
+      repository: https://grafana.github.io/loki/charts
+      version: 0.18.0
+    - condition: prometheus-operator.enabled
+      name: prometheus-operator
+      repository: https://charts.bitnami.com/bitnami
+      version: 0.11.1
+    - condition: kube-eagle.enabled
+      name: kube-eagle
+      repository: https://raw.githubusercontent.com/cloudworkz/kube-eagle-helm-chart/master
+      version: 1.1.5
+    description: Some base dependencies in a sane cluster
+    digest: 6dacf68b8801ef7bfa3087436687939f5ae8179674d0b2e24ea76a3c0089f174
+    home: https://geek-cookbook.funkypenguin.co.nz
+    maintainers:
+    - email: davidy@funkypenguin.co.nz
+      name: funkypenguin
+      url: https://www.funkypenguin.co.nz
+    name: wash-hands
+    urls:
+    - wash-hands-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v1
+    created: "2020-04-16T18:20:57.00764805Z"
+    dependencies:
+    - name: kured
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.4.x
+    - name: nginx-ingress
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.25.x
+    - name: goldilocks
+      repository: https://charts.fairwinds.com/stable
+      version: 2.1.0
+    - name: cert-manager
+      repository: https://charts.jetstack.io
+      version: v0.13.0
+    digest: a7892ee42872acba288a64e7f4d18cdc944ff3bf6ad46d27589dd1d05a585ab6
+    name: wash-hands
+    urls:
+    - wash-hands-0.0.1.tgz
+    version: 0.0.1
+generated: "2020-04-16T18:20:56.993608903Z"
